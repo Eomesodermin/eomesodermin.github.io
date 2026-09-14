@@ -135,11 +135,11 @@
     src: url(fonts/fraunces-5.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
-  /* latin-ext — variable font, wght axis 400–700 */
+  /* latin-ext */
   @font-face {
     font-family: 'Instrument Sans';
     font-style: normal;
-    font-weight: 400 700;
+    font-weight: 400;
     font-stretch: 100%;
     font-display: swap;
     src: url(fonts/instrumentsans-6.woff2) format('woff2');
@@ -149,7 +149,47 @@
   @font-face {
     font-family: 'Instrument Sans';
     font-style: normal;
-    font-weight: 400 700;
+    font-weight: 400;
+    font-stretch: 100%;
+    font-display: swap;
+    src: url(fonts/instrumentsans-7.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  /* latin-ext */
+  @font-face {
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-stretch: 100%;
+    font-display: swap;
+    src: url(fonts/instrumentsans-6.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-stretch: 100%;
+    font-display: swap;
+    src: url(fonts/instrumentsans-7.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  /* latin-ext */
+  @font-face {
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-stretch: 100%;
+    font-display: swap;
+    src: url(fonts/instrumentsans-6.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 600;
     font-stretch: 100%;
     font-display: swap;
     src: url(fonts/instrumentsans-7.woff2) format('woff2');
@@ -195,10 +235,6 @@
       --subtle:  #6e6c67;
       --accent:  #1d3d7a;
       --border:  #dddbd5;
-      /* muted blue-grey from the cell palette, reused as button tint + border */
-      --btn-tint: 146,157,187;
-      /* centred content width for the nav and hero on large viewports */
-      --shell:   1200px;
       --wl:      #1d3d7a;
       --cp:      #1f7a8c;
       --ld:      #6f5a99;
@@ -389,17 +425,10 @@
        only .hero-inner is constrained and centred. */
     #home {
       position: relative;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
       min-height: 100vh;
       padding-top: var(--nav-h);
-    }
-
-    .hero-inner {
-      display: grid;
-      /* left column carries the 72px name and the four-button row on one line each */
-      grid-template-columns: 1.35fr 1fr;
-      max-width: var(--shell);
-      margin: 0 auto;
-      min-height: calc(100vh - var(--nav-h));
     }
 
     /* ambient immune-cell field — sits behind the hero text column */
@@ -418,8 +447,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      /* left pad matches .nav-inner so the name lines up under the nav name */
-      padding: 5rem 2.5rem 5rem 3.5rem;
+      padding: 5rem 4rem 5rem 3.5rem;
     }
 
     .hero-eyebrow {
@@ -832,6 +860,32 @@
       padding: 0.34rem 0.72rem;
       border: 1px solid;
     }
+    .s-pill.sig {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #fff;
+      padding: 0.44rem 0.95rem;
+    }
+    .s-pill.sub {
+      font-size: 0.74rem;
+      font-weight: 500;
+      padding: 0.34rem 0.72rem;
+      border: 1px solid;
+    }
+
+    /* per-section colour coding */
+    .tier-wl .skill-cat { color: var(--wl); }
+    .tier-wl .s-pill.sig { background: var(--wl); }
+    .tier-wl .s-pill.sub { color: var(--wl); background: rgba(29,61,122,0.06); border-color: rgba(29,61,122,0.16); }
+    .tier-cp .skill-cat { color: var(--cp); }
+    .tier-cp .s-pill.sig { background: var(--cp); }
+    .tier-cp .s-pill.sub { color: var(--cp); background: rgba(31,122,140,0.07); border-color: rgba(31,122,140,0.18); }
+    .tier-ld .skill-cat { color: var(--ld); }
+    .tier-ld .s-pill.sig { background: var(--ld); }
+    .tier-ld .s-pill.sub { color: var(--ld); background: rgba(111,90,153,0.07); border-color: rgba(111,90,153,0.18); }
+
+    .s-pill.sig:hover { transform: translateY(-1px); box-shadow: 0 3px 12px rgba(20,20,18,0.14); }
+    .s-pill.sub:hover { transform: translateY(-1px); }
 
     /* per-section colour coding */
     .tier-wl .skill-cat { color: var(--wl); }
@@ -1133,8 +1187,7 @@
       .nav-hamburger { display: flex; }
       .mobile-drawer { display: flex; }
 
-      #home { min-height: auto; }
-      .hero-inner { grid-template-columns: 1fr; min-height: auto; }
+      #home { grid-template-columns: 1fr; min-height: auto; }
       .hero-left { padding: 4.5rem 1.5rem 2rem; }
       .hero-right { padding: 1rem 1.5rem 4rem; }
       .photo-frame { width: 150px; height: 150px; }
@@ -1155,7 +1208,6 @@
       body { background: #fff; color: #000; font-size: 11pt; }
       .reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
       #home { display: block; min-height: auto; padding-top: 0; }
-      .hero-inner { display: block; min-height: auto; max-width: none; }
       .hero-left { padding: 0 0 1rem; }
       .hero-right { flex-direction: row; gap: 1.5rem; padding: 0 0 1rem; justify-content: flex-start; }
       .photo-frame { width: 90px; height: 90px; box-shadow: none; transform: none !important; }
@@ -1204,51 +1256,49 @@
 <!-- HERO -->
 <section id="home">
   <canvas id="cell-field" aria-hidden="true"></canvas>
-  <div class="hero-inner">
-    <div class="hero-left">
-      <span class="hero-eyebrow reveal">Postdoctoral Researcher · University Hospital Bonn</span>
-      <h1 class="hero-name reveal d1">Dillon Corvino<em>, PhD</em></h1>
-      <p class="hero-sub reveal d2">T cell &amp; NK cell biology &ensp;·&ensp; Immuno-oncology &ensp;·&ensp; Single-cell multi-omics</p>
-      <p class="hero-bio reveal d3">
-        Immunologist with 6+ years of postdoctoral experience across tumour immunology, viral immunity, and translational immuno-oncology. I combine wet-lab expertise in human primary tissue and genetic engineering with independent end-to-end single-cell and spatial multi-omics analysis.
-      </p>
-      <p class="hero-bio reveal d3">
-        My focus is understanding cytotoxic lymphocyte biology and advancing cell therapy strategies from discovery through publication.
-      </p>
-      <p class="hero-open reveal d3">Open to industry roles in immuno-oncology and cell therapy across the EU and Australia</p>
-      <div class="hero-actions reveal d3">
-        <a href="CV_Dillon_Corvino.pdf" download class="btn-primary">
-          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download CV (PDF)
-        </a>
-        <a href="https://scholar.google.com/citations?user=1-fxfDkAAAAJ" target="_blank" rel="noopener noreferrer" class="btn-ghost">Scholar</a>
-        <a href="https://www.linkedin.com/in/dillon-corvino-8b9320ab/" target="_blank" rel="noopener noreferrer" class="btn-ghost">LinkedIn</a>
-        <a href="https://github.com/Eomesodermin" target="_blank" rel="noopener noreferrer" class="btn-ghost">GitHub</a>
-      </div>
+  <div class="hero-left">
+    <span class="hero-eyebrow reveal">Postdoctoral Researcher · University Hospital Bonn</span>
+    <h1 class="hero-name reveal d1">Dillon Corvino<em>, PhD</em></h1>
+    <p class="hero-sub reveal d2">T cell &amp; NK cell biology &ensp;·&ensp; Immuno-oncology &ensp;·&ensp; Single-cell multi-omics</p>
+    <p class="hero-bio reveal d3">
+      Immunologist with 6+ years of postdoctoral experience across tumour immunology, viral immunity, and translational immuno-oncology. I combine wet-lab expertise in human primary tissue and genetic engineering with independent end-to-end single-cell and spatial multi-omics analysis.
+    </p>
+    <p class="hero-bio reveal d3">
+      My focus is understanding cytotoxic lymphocyte biology and advancing cell therapy strategies from discovery through publication.
+    </p>
+    <p class="hero-open reveal d3">Open to industry roles in immuno-oncology and cell therapy across the EU and Australia</p>
+    <div class="hero-actions reveal d3">
+      <a href="CV_Dillon_Corvino.pdf" download class="btn-primary">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download CV (PDF)
+      </a>
+      <a href="https://scholar.google.com/citations?user=1-fxfDkAAAAJ" target="_blank" rel="noopener noreferrer" class="btn-ghost">Scholar</a>
+      <a href="https://www.linkedin.com/in/dillon-corvino-8b9320ab/" target="_blank" rel="noopener noreferrer" class="btn-ghost">LinkedIn</a>
+      <a href="https://github.com/Eomesodermin" target="_blank" rel="noopener noreferrer" class="btn-ghost">GitHub</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="photo-frame reveal">
+      <img src="photo.jpg" alt="Dillon Corvino" />
     </div>
 
-    <div class="hero-right">
-      <div class="photo-frame reveal">
-        <img src="photo.jpg" alt="Dillon Corvino" />
+    <div class="stats-grid reveal d1">
+      <div class="stat">
+        <div class="stat-n">970</div>
+        <div class="stat-l">Citations</div>
       </div>
-
-      <div class="stats-grid reveal d1">
-        <div class="stat">
-          <div class="stat-n">970</div>
-          <div class="stat-l">Citations</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">15</div>
-          <div class="stat-l">h-index</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">6+</div>
-          <div class="stat-l">Yrs postdoc</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">€110k</div>
-          <div class="stat-l">Funding (PI)</div>
-        </div>
+      <div class="stat">
+        <div class="stat-n">15</div>
+        <div class="stat-l">h-index</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">6+</div>
+        <div class="stat-l">Yrs postdoc</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">€110k</div>
+        <div class="stat-l">Funding (PI)</div>
       </div>
     </div>
   </div>
@@ -1728,7 +1778,7 @@
     const sizes = [
       { rMin: 9, rMax: 14 }, { rMin: 13, rMax: 20 }, { rMin: 20, rMax: 29 },
     ];
-    const palette = ['108,129,168', '118,146,198', '137,144,194', '151,166,219', '110,159,181', '115,176,193', '146,157,187'];
+    const palette = ['29,61,122', '45,88,168', '74,84,162', '96,118,200', '32,108,142', '40,134,160', '88,104,150'];
     const pickSize = () => { const r = Math.random(); return r < 0.4 ? sizes[0] : r < 0.74 ? sizes[1] : sizes[2]; };
 
     function makeCell(x, y, r, col) {
