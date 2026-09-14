@@ -231,6 +231,7 @@
       --surface: #ffffff;
       --text:    #141412;
       --muted:   #6b6860;
+      --muted-strong: #4a4740;
       --subtle:  #6e6c67;
       --accent:  #1d3d7a;
       --border:  #dddbd5;
@@ -276,14 +277,21 @@
       position: fixed;
       inset: 0 0 auto 0;
       z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 3.5rem;
       height: var(--nav-h);
       background: rgba(245,244,240,0.96);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
+    }
+
+    /* bar stays full-bleed; contents centre to match the hero */
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      max-width: var(--shell);
+      margin: 0 auto;
+      padding: 0 3.5rem;
     }
 
     .nav-name {
@@ -413,6 +421,8 @@
     }
 
     /* ── HERO ── */
+    /* #home stays full-bleed so the cell canvas covers the whole viewport;
+       only .hero-inner is constrained and centred. */
     #home {
       position: relative;
       display: grid;
@@ -522,40 +532,56 @@
     .btn-primary {
       font-family: var(--sans);
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: #fff;
       background: var(--accent);
       text-decoration: none;
       padding: 0.7rem 1.4rem;
+      border: 2px solid var(--accent);
       border-radius: 4px;
-      transition: background 0.15s, transform 0.15s;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
     }
 
-    .btn-primary:hover { background: #162e5e; transform: translateY(-1px); }
+    .btn-primary:hover {
+      background: #162e5e;
+      border-color: #0f2244;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(29,61,122,0.32);
+    }
+
+    .btn-primary:active { transform: translateY(0); box-shadow: inset 0 1px 3px rgba(0,0,0,0.3); }
 
     .btn-ghost {
       font-family: var(--sans);
       font-size: 0.82rem;
-      font-weight: 500;
+      font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--muted-strong);
       text-decoration: none;
       padding: 0.7rem 1.1rem;
-      border: 1px solid var(--border);
+      border: 2px solid rgba(var(--btn-tint), 0.7);
       border-radius: 4px;
-      transition: color 0.15s, border-color 0.15s, transform 0.15s;
+      background-color: rgba(var(--btn-tint), 0.25);
+      transition: color 0.15s, border-color 0.15s, background-color 0.15s, transform 0.15s;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
     }
 
-    .btn-ghost:hover { color: var(--text); border-color: var(--text); transform: translateY(-1px); }
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: var(--accent);
+      background-color: rgba(var(--btn-tint), 0.45);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost:active { transform: translateY(0); }
 
     /* ── HERO RIGHT ── */
     .hero-right {
@@ -834,6 +860,32 @@
       padding: 0.34rem 0.72rem;
       border: 1px solid;
     }
+    .s-pill.sig {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #fff;
+      padding: 0.44rem 0.95rem;
+    }
+    .s-pill.sub {
+      font-size: 0.74rem;
+      font-weight: 500;
+      padding: 0.34rem 0.72rem;
+      border: 1px solid;
+    }
+
+    /* per-section colour coding */
+    .tier-wl .skill-cat { color: var(--wl); }
+    .tier-wl .s-pill.sig { background: var(--wl); }
+    .tier-wl .s-pill.sub { color: var(--wl); background: rgba(29,61,122,0.06); border-color: rgba(29,61,122,0.16); }
+    .tier-cp .skill-cat { color: var(--cp); }
+    .tier-cp .s-pill.sig { background: var(--cp); }
+    .tier-cp .s-pill.sub { color: var(--cp); background: rgba(31,122,140,0.07); border-color: rgba(31,122,140,0.18); }
+    .tier-ld .skill-cat { color: var(--ld); }
+    .tier-ld .s-pill.sig { background: var(--ld); }
+    .tier-ld .s-pill.sub { color: var(--ld); background: rgba(111,90,153,0.07); border-color: rgba(111,90,153,0.18); }
+
+    .s-pill.sig:hover { transform: translateY(-1px); box-shadow: 0 3px 12px rgba(20,20,18,0.14); }
+    .s-pill.sub:hover { transform: translateY(-1px); }
 
     /* per-section colour coding */
     .tier-wl .skill-cat { color: var(--wl); }
@@ -1129,7 +1181,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
-      nav { padding: 0 1.25rem; }
+      .nav-inner { padding: 0 1.25rem; }
       .nav-links { display: none; }
       .nav-cv { display: none; }
       .nav-hamburger { display: flex; }
@@ -1175,19 +1227,21 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#home" class="nav-name">Dillon Corvino</a>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="#research">Research</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a href="CV_Dillon_Corvino.pdf" download class="nav-cv">Download CV (PDF)</a>
-    <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+  <div class="nav-inner">
+    <a href="#home" class="nav-name">Dillon Corvino</a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#research">Research</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="CV_Dillon_Corvino.pdf" download class="nav-cv">Download CV (PDF)</a>
+      <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
