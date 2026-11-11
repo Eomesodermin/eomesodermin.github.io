@@ -13,9 +13,9 @@
   <meta property="og:title" content="Dillon Corvino, PhD — Immunologist">
   <meta property="og:description" content="Postdoctoral immunologist specialising in T cell and NK cell biology, single-cell multi-omics, and translational immuno-oncology. University Hospital Bonn, Germany.">
   <meta property="og:url" content="https://dilloncorvino.com/">
-  <meta property="og:image" content="https://dilloncorvino.com/photo.jpg">
+  <meta property="og:image" content="https://dilloncorvino.com/og.jpg">
   <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Dillon Corvino">
   <meta property="profile:first_name" content="Dillon">
   <meta property="profile:last_name" content="Corvino">
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Dillon Corvino, PhD — Immunologist">
   <meta name="twitter:description" content="Postdoctoral immunologist specialising in T cell and NK cell biology, single-cell multi-omics, and translational immuno-oncology.">
-  <meta name="twitter:image" content="https://dilloncorvino.com/photo.jpg">
+  <meta name="twitter:image" content="https://dilloncorvino.com/og.jpg">
 
   <!-- Self-hosted fonts (no external dependency; GitHub Pages friendly) -->
   <style id="fonts">
@@ -359,7 +359,9 @@
       transition: opacity 0.2s ease, transform 0.2s ease;
       pointer-events: none;
     }
+    .mobile-drawer { visibility: hidden; }
     .mobile-drawer.open {
+      visibility: visible;
       opacity: 1;
       transform: none;
       pointer-events: auto;
@@ -390,6 +392,7 @@
     #home {
       position: relative;
       min-height: 100vh;
+      min-height: 100svh;
       padding-top: var(--nav-h);
     }
 
@@ -400,6 +403,7 @@
       max-width: var(--shell);
       margin: 0 auto;
       min-height: calc(100vh - var(--nav-h));
+      min-height: calc(100svh - var(--nav-h));
     }
 
     /* ambient immune-cell field — sits behind the hero text column */
@@ -432,6 +436,7 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
+      text-shadow: 0 0 8px var(--bg), 0 0 14px var(--bg);
       margin-bottom: 1.75rem;
     }
 
@@ -957,7 +962,7 @@
     #contact { background: #141412; }
 
     #contact .section-title { color: #fff; }
-    #contact .section-num { color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.07); }
+    #contact .section-num { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.07); }
 
     .contact-grid {
       display: grid;
@@ -968,7 +973,7 @@
     .contact-intro {
       font-size: 1.1rem;
       line-height: 1.85;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.75);
     }
 
     .contact-intro strong { color: rgba(255,255,255,0.85); font-weight: 500; }
@@ -986,7 +991,7 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.6);
     }
 
     .c-value { font-size: 0.97rem; color: rgba(255,255,255,0.8); }
@@ -1029,7 +1034,7 @@
       align-items: center;
     }
 
-    footer p { font-size: 0.72rem; color: rgba(255,255,255,0.2); letter-spacing: 0.04em; }
+    footer p { font-size: 0.75rem; color: rgba(255,255,255,0.6); letter-spacing: 0.04em; }
 
     /* ── REVEAL ── */
     /* Default = visible. The entrance animation only plays when JS adds .in,
@@ -1145,6 +1150,23 @@
       .skills-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
       footer { flex-direction: column; gap: 0.5rem; padding: 1.5rem; text-align: center; }
+
+      /* phone readability: calmer cell field, larger type, 44px tap targets */
+      #cell-field { opacity: 0.45; }
+      .chip { font-size: 0.8rem; white-space: normal; }
+      .s-pill.sub { font-size: 0.8rem; }
+      .s-pill.sig { font-size: 0.9rem; }
+      .stat-l, .meta-label, .c-label { font-size: 0.7rem; }
+      .pub-row { grid-template-columns: 1fr; gap: 0.75rem; }
+      .pub-doi { justify-self: start; padding: 0.7rem 1.1rem; min-height: 44px; display: inline-flex; align-items: center; }
+      .btn-primary, .btn-ghost, .btn-cv-contact { min-height: 44px; }
+      .btn-ghost { align-items: center; }
+      .nav-hamburger { width: 44px; height: 44px; padding: 10px; }
+      .nav-name { padding: 0.6rem 0; }
+      .c-value a, .pub-meta a { display: inline-block; padding: 0.55rem 0; }
+      .copy-email { min-height: 44px; padding: 0 0.75rem; }
+      .c-row { gap: 0; }
+      .contact-list { gap: 0.75rem; }
     }
 
     /* ── PRINT (clean one-pager) ── */
@@ -1171,7 +1193,7 @@
 </head>
 <body>
 
-<a href="#home" class="skip-link">Skip to main content</a>
+<a href="#main" class="skip-link">Skip to main content</a>
 
 <!-- NAV -->
 <nav>
@@ -1194,13 +1216,14 @@
 </nav>
 
 <!-- MOBILE DRAWER -->
-<div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-label="Navigation menu">
+<div class="mobile-drawer" id="mobile-drawer" aria-label="Navigation menu">
   <a href="#research">Research</a>
   <a href="#publications">Publications</a>
   <a href="#contact">Contact</a>
   <a href="CV_Dillon_Corvino.pdf" download class="drawer-cv">Download CV (PDF)</a>
 </div>
 
+<main id="main">
 <!-- HERO -->
 <section id="home">
   <canvas id="cell-field" aria-hidden="true"></canvas>
@@ -1234,11 +1257,11 @@
 
       <div class="stats-grid reveal d1">
         <div class="stat">
-          <div class="stat-n">970</div>
+          <div class="stat-n" data-metric="citations">970</div>
           <div class="stat-l">Citations</div>
         </div>
         <div class="stat">
-          <div class="stat-n">15</div>
+          <div class="stat-n" data-metric="h_index">15</div>
           <div class="stat-l">h-index</div>
         </div>
         <div class="stat">
@@ -1379,7 +1402,7 @@
         <div class="skill-tier tier-ld">
           <span class="skill-cat">Leadership</span>
           <div class="skill-sig">
-            <span class="s-pill sig">PI — €100k BMBF GO-Bio grant</span>
+            <span class="s-pill sig">PI — €110k BMBF GO-Bio grant</span>
             <span class="s-pill sig">Independent programme ownership</span>
             <span class="s-pill sig">Hiring lead · 3 PhDs &amp; 2 technicians</span>
           </div>
@@ -1410,10 +1433,16 @@
     <p class="pub-meta reveal">
       Full list on <a href="https://scholar.google.com/citations?user=1-fxfDkAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a> &ensp;·&ensp;
       ORCID <a href="https://orcid.org/0000-0003-0683-1369" target="_blank" rel="noopener noreferrer">0000-0003-0683-1369</a> &ensp;·&ensp;
-      970 citations &ensp;·&ensp; h-index 15
+      <span data-metric="citations">970</span> citations &ensp;·&ensp; h-index <span data-metric="h_index">15</span>
     </p>
 
     <div class="reveal">
+
+      <!-- Auto-filled from data/site-data.json (OpenAlex) when there are papers newer than the list below -->
+      <div id="latest-pubs" hidden>
+        <span class="pub-year-label">Latest</span>
+        <div id="latest-pubs-list"></div>
+      </div>
 
       <span class="pub-year-label">2025</span>
 
@@ -1602,6 +1631,7 @@
     </div>
   </div>
 </section>
+</main>
 
 <footer>
   <p>Dillon Corvino, PhD &ensp;·&ensp; University Hospital Bonn</p>
@@ -1633,6 +1663,15 @@
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) {
+      drawer.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      hamburger.focus();
+    }
+  });
+
   drawer.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       drawer.classList.remove('open');
@@ -1640,6 +1679,49 @@
       document.body.style.overflow = '';
     });
   });
+
+  /* ── LIVE METRICS + LATEST PAPERS (data/site-data.json, refreshed weekly by GitHub Action) ── */
+  const siteDataReady = fetch('data/site-data.json', { cache: 'no-cache' })
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(d => {
+      const m = d.metrics || {};
+      document.querySelectorAll('[data-metric]').forEach(el => {
+        const v = m[el.dataset.metric];
+        if (Number.isFinite(v)) el.textContent = v.toLocaleString('en-US');
+      });
+      if (d.updated) {
+        const t = new Date(d.updated + 'T00:00:00Z');
+        const lu = document.getElementById('last-updated');
+        if (lu && !isNaN(t)) {
+          lu.textContent = t.toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+          lu.setAttribute('datetime', d.updated);
+        }
+      }
+      const list = document.getElementById('latest-pubs-list');
+      const wrap = document.getElementById('latest-pubs');
+      (d.latest || []).forEach(p => {
+        const row = document.createElement('div'); row.className = 'pub-row';
+        const body = document.createElement('div');
+        const badges = document.createElement('div'); badges.className = 'pub-badges';
+        const b = document.createElement('span'); b.className = 'pub-badge'; b.textContent = 'New';
+        badges.appendChild(b); body.appendChild(badges);
+        const au = document.createElement('p'); au.className = 'pub-authors';
+        (p.authors || []).forEach((a, i) => {
+          if (i) au.append(', ');
+          if (a.me) { const st = document.createElement('strong'); st.textContent = a.name; au.appendChild(st); }
+          else au.append(a.name);
+        });
+        if (p.et_al) au.append(', et al.');
+        const ti = document.createElement('p'); ti.className = 'pub-title'; ti.textContent = p.title;
+        const ve = document.createElement('p'); ve.className = 'pub-venue'; ve.textContent = p.venue + ', ' + p.year;
+        body.append(au, ti, ve);
+        const a = document.createElement('a'); a.className = 'pub-doi'; a.textContent = 'DOI ↗';
+        a.href = p.doi; a.target = '_blank'; a.rel = 'noopener noreferrer';
+        row.append(body, a); list.appendChild(row);
+      });
+      if (list.children.length) wrap.hidden = false;
+    })
+    .catch(() => { /* keep the static values already in the HTML */ });
 
   /* ── ACTIVE NAV HIGHLIGHT ── */
   (function () {
@@ -1678,8 +1760,10 @@
     const statIO = new IntersectionObserver((entries, obs) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          grid.querySelectorAll('.stat-n').forEach(run);
           obs.disconnect();
+          // wait briefly for live metrics so the count-up lands on the fresh number
+          Promise.race([siteDataReady, new Promise(r => setTimeout(r, 1200))])
+            .then(() => grid.querySelectorAll('.stat-n').forEach(run));
         }
       });
     }, { threshold: 0.4 });
