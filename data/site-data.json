@@ -23,9 +23,104 @@
     }
   ],
   "metrics": {
-    "citations": 961,
+    "citations": 965,
     "h_index": 16
   },
-  "source": "OpenAlex",
-  "updated": "2026-11-11"
+  "repos": [
+    {
+      "description": "Code for Susanna Ng & Roberta Turiello et al., Manuscript exploring Granzyme expression profiles and patterns",
+      "language": "R",
+      "name": "Turiello_Ng_etal_EJI_2025",
+      "paper": {
+        "cite": "Turiello, Ng et al.",
+        "doi": "https://doi.org/10.1002/eji.202551885",
+        "journal": "European Journal of Immunology",
+        "year": 2025
+      },
+      "stars": 0,
+      "url": "https://github.com/Eomesodermin/Turiello_Ng_etal_EJI_2025"
+    },
+    {
+      "description": "Analysis code for Corvino et al. — type I interferon drives a TCR-stimulation-inert cellular state that may impede T-cell differentiation in cancer. European Journal of Immunology 2024.",
+      "language": "R",
+      "name": "Corvino_etal_2024_EJI",
+      "paper": {
+        "cite": "Corvino et al.",
+        "doi": "https://doi.org/10.1002/eji.202451371",
+        "journal": "European Journal of Immunology",
+        "year": 2025
+      },
+      "stars": 0,
+      "url": "https://github.com/Eomesodermin/Corvino_etal_2024_EJI"
+    },
+    {
+      "description": "Analysis code (by Dillon Corvino) for Giordano, Layer, Leonardelli et al. — CXCL12 inhibition (NOX-A12) plus radiotherapy in newly diagnosed glioblastoma (GLORIA phase I/II trial). Nature Communications 2024.",
+      "language": null,
+      "name": "Giordano_Layer_Leonardelli_etal_2024_Nature_Coms",
+      "paper": {
+        "cite": "Giordano, Layer, Leonardelli et al.",
+        "doi": "https://doi.org/10.1038/s41467-024-48416-9",
+        "journal": "Nature Communications",
+        "year": 2024
+      },
+      "stars": 0,
+      "url": "https://github.com/Eomesodermin/Giordano_Layer_Leonardelli_etal_2024_Nature_Coms"
+    },
+    {
+      "description": "Analysis code (by Dillon Corvino) for Hosni, Kilian et al. — adipocyte precursor-derived NRG1 promotes resistance to FGFR inhibition in urothelial carcinoma. Cancer Research 2023.",
+      "language": "R",
+      "name": "Hosni_Kilian_etal_Cancer_Research_2023",
+      "paper": {
+        "cite": "Hosni, Kilian et al.",
+        "doi": "https://doi.org/10.1158/0008-5472.CAN-23-1398",
+        "journal": "Cancer Research",
+        "year": 2024
+      },
+      "stars": 0,
+      "url": "https://github.com/Eomesodermin/Hosni_Kilian_etal_Cancer_Research_2023"
+    },
+    {
+      "description": "Analysis code (by Dillon Corvino) for Braun et al. — CD155 drives immunotherapy resistance via CD226 degradation in CD8+ T cells. Immunity 2020.",
+      "language": "R",
+      "name": "Braun_et_al_Immunity_2020",
+      "paper": {
+        "cite": "Braun et al.",
+        "doi": "https://doi.org/10.1016/j.immuni.2020.09.010",
+        "journal": "Immunity",
+        "year": 2020
+      },
+      "stars": 0,
+      "url": "https://github.com/Eomesodermin/Braun_et_al_Immunity_2020"
+    },
+    {
+      "description": "R package of reusable bioinformatics & single-cell helper functions (heatmaps, volcano plots, GO, UMAP optimisation, TCGA survival, colour schemes)",
+      "language": "R",
+      "name": "r-utility-functions",
+      "stars": 1,
+      "url": "https://github.com/Eomesodermin/r-utility-functions"
+    },
+    {
+      "description": "Do NK cells carry a thymic TCR footprint, and are CD56bright and CD56dim NK distinct lineages? Single-cell VDJ and somatic mtDNA lineage tracing across public datasets",
+      "language": "Python",
+      "name": "Thymic_NK_development",
+      "stars": 0,
+      "url": "https://github.com/Eomesodermin/Thymic_NK_development"
+    },
+    {
+      "description": "De novo mini-binder design pipeline (RFdiffusion, ProteinMPNN, Boltz-2, Chai-1) applied to NKG7 extracellular loops, with a sequence-complexity audit of the designs",
+      "language": "Python",
+      "name": "nkg7-binder-design",
+      "stars": 0,
+      "url": "https://github.com/Eomesodermin/nkg7-binder-design"
+    },
+    {
+      "description": "In-silico structural & evolutionary characterisation of NKG7 (cytotoxic-lymphocyte granule tetraspan): structure prediction + homology + pore analysis. Tests the ion-channel hypothesis — finds a self-associating claudin/Ca_V-γ scaffold, not a pore.",
+      "language": "Python",
+      "name": "nkg7-structural-analysis",
+      "stars": 0,
+      "url": "https://github.com/Eomesodermin/nkg7-structural-analysis"
+    }
+  ],
+  "source": "OpenAlex + GitHub",
+  "updated": "2026-11-12"
 }

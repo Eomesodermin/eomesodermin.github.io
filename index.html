@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
   <title>Dillon Corvino, PhD — Immunologist</title>
   <meta name="description" content="Postdoctoral immunologist specialising in T cell and NK cell biology, single-cell multi-omics, and translational immuno-oncology. University Hospital Bonn, Germany.">
 
@@ -194,17 +195,48 @@
       --muted-strong: #4a4740;
       --subtle:  #6e6c67;
       --accent:  #1d3d7a;
+      --accent-rgb: 29,61,122;
+      --accent-hover: #162e5e;
+      --on-accent: #fff;
+      --bg-rgb:  245,244,240;
       --border:  #dddbd5;
       /* muted blue-grey from the cell palette, reused as button tint + border */
       --btn-tint: 146,157,187;
       /* centred content width for the nav and hero on large viewports */
       --shell:   1200px;
-      --wl:      #1d3d7a;
+      --wl:      #1d3d7a;   /* pill fills (white text) */
       --cp:      #1f7a8c;
       --ld:      #6f5a99;
+      --wl-t:    #1d3d7a;   /* label / outline text */
+      --cp-t:    #1f7a8c;
+      --ld-t:    #6f5a99;
+      --im:      #a8552f;
+      --im-t:    #a8552f;
       --serif:   'Fraunces', Georgia, serif;
       --sans:    'Instrument Sans', system-ui, sans-serif;
       --nav-h:   64px;
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+      :root {
+        --bg:      #121316;
+        --surface: #1a1c21;
+        --text:    #ecebe6;
+        --muted:   #a8a59d;
+        --muted-strong: #c9c6be;
+        --subtle:  #a09d95;
+        --accent:  #8fb0ee;
+        --accent-rgb: 143,176,238;
+        --accent-hover: #adc6f4;
+        --on-accent: #0d1b33;
+        --bg-rgb:  18,19,22;
+        --border:  #2d3038;
+        --wl-t: #8fb0ee;
+        --cp-t: #5fc3d6;
+        --ld-t: #b9a8e3;
+        --im-t: #e3a483;
+      }
+      #contact { border-top: 1px solid var(--border); }
     }
 
     html { scroll-behavior: smooth; }
@@ -225,7 +257,7 @@
       left: 1rem;
       z-index: 200;
       background: var(--accent);
-      color: #fff;
+      color: var(--on-accent);
       font-family: var(--sans);
       font-size: 0.85rem;
       font-weight: 600;
@@ -242,7 +274,7 @@
       inset: 0 0 auto 0;
       z-index: 100;
       height: var(--nav-h);
-      background: rgba(245,244,240,0.96);
+      background: rgba(var(--bg-rgb),0.96);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
@@ -301,7 +333,7 @@
       font-weight: 600;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: #fff;
+      color: var(--on-accent);
       background: var(--accent);
       text-decoration: none;
       padding: 0.4rem 1rem;
@@ -311,7 +343,7 @@
       white-space: nowrap;
     }
 
-    .nav-cv:hover { background: #162e5e; }
+    .nav-cv:hover { background: var(--accent-hover); }
 
     /* ── HAMBURGER ── */
     .nav-hamburger {
@@ -347,7 +379,7 @@
       position: fixed;
       inset: var(--nav-h) 0 0 0;
       z-index: 99;
-      background: rgba(245,244,240,0.98);
+      background: rgba(var(--bg-rgb),0.98);
       backdrop-filter: blur(16px);
       flex-direction: column;
       align-items: flex-start;
@@ -512,7 +544,7 @@
       font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: #fff;
+      color: var(--on-accent);
       background: var(--accent);
       text-decoration: none;
       padding: 0.7rem 1.4rem;
@@ -525,10 +557,10 @@
     }
 
     .btn-primary:hover {
-      background: #162e5e;
-      border-color: #0f2244;
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(29,61,122,0.32);
+      box-shadow: 0 4px 12px rgba(var(--accent-rgb),0.32);
     }
 
     .btn-primary:active { transform: translateY(0); box-shadow: inset 0 1px 3px rgba(0,0,0,0.3); }
@@ -684,7 +716,7 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
-      background: rgba(29,61,122,0.08);
+      background: rgba(var(--accent-rgb),0.08);
       padding: 0.28rem 0.6rem;
       border-radius: 3px;
     }
@@ -698,53 +730,9 @@
     }
 
     /* ── RESEARCH ── */
-    #research { background: var(--bg); }
+    #expertise { background: var(--bg); }
 
-    .research-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-      margin-bottom: 4rem;
-    }
-
-    .r-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-
-    .r-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); transform: translateY(-2px); }
-
-    .r-card-icon {
-      width: 34px;
-      height: 34px;
-      margin-bottom: 1.1rem;
-      color: var(--accent);
-      opacity: 0.7;
-    }
-
-    .r-card h3 {
-      font-family: var(--sans);
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.6rem;
-    }
-
-    .r-card-lead {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 1.1rem;
-    }
-
-    /* chip clouds — shared by research cards & core-expertise */
+    /* chip clouds — used by core-expertise */
     .chip-row {
       display: flex;
       flex-wrap: wrap;
@@ -758,8 +746,8 @@
       font-size: 0.72rem;
       font-weight: 500;
       color: var(--accent);
-      background: rgba(29,61,122,0.06);
-      border: 1px solid rgba(29,61,122,0.12);
+      background: rgba(var(--accent-rgb),0.06);
+      border: 1px solid rgba(var(--accent-rgb),0.12);
       padding: 0.3rem 0.7rem;
       border-radius: 100px;
       line-height: 1.3;
@@ -839,15 +827,18 @@
     }
 
     /* per-section colour coding */
-    .tier-wl .skill-cat { color: var(--wl); }
+    .tier-wl .skill-cat { color: var(--wl-t); }
     .tier-wl .s-pill.sig { background: var(--wl); }
-    .tier-wl .s-pill.sub { color: var(--wl); background: rgba(29,61,122,0.06); border-color: rgba(29,61,122,0.16); }
-    .tier-cp .skill-cat { color: var(--cp); }
+    .tier-wl .s-pill.sub { color: var(--wl-t); background: rgba(var(--accent-rgb),0.06); border-color: rgba(var(--accent-rgb),0.16); }
+    .tier-cp .skill-cat { color: var(--cp-t); }
     .tier-cp .s-pill.sig { background: var(--cp); }
-    .tier-cp .s-pill.sub { color: var(--cp); background: rgba(31,122,140,0.07); border-color: rgba(31,122,140,0.18); }
-    .tier-ld .skill-cat { color: var(--ld); }
+    .tier-cp .s-pill.sub { color: var(--cp-t); background: rgba(31,122,140,0.07); border-color: rgba(31,122,140,0.18); }
+    .tier-im .skill-cat { color: var(--im-t); }
+    .tier-im .s-pill.sig { background: var(--im); }
+    .tier-im .s-pill.sub { color: var(--im-t); background: rgba(168,85,47,0.07); border-color: rgba(168,85,47,0.2); }
+    .tier-ld .skill-cat { color: var(--ld-t); }
     .tier-ld .s-pill.sig { background: var(--ld); }
-    .tier-ld .s-pill.sub { color: var(--ld); background: rgba(111,90,153,0.07); border-color: rgba(111,90,153,0.18); }
+    .tier-ld .s-pill.sub { color: var(--ld-t); background: rgba(111,90,153,0.07); border-color: rgba(111,90,153,0.18); }
 
     .s-pill.sig:hover { transform: translateY(-1px); box-shadow: 0 3px 12px rgba(20,20,18,0.14); }
     .s-pill.sub:hover { transform: translateY(-1px); }
@@ -895,7 +886,7 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
-      background: rgba(29,61,122,0.07);
+      background: rgba(var(--accent-rgb),0.07);
       display: inline-block;
       padding: 0.28rem 0.7rem;
       border-radius: 3px;
@@ -949,14 +940,81 @@
       text-decoration: none;
       white-space: nowrap;
       padding: 0.42rem 0.85rem;
-      border: 1px solid rgba(29,61,122,0.25);
+      border: 1px solid rgba(var(--accent-rgb),0.25);
       border-radius: 4px;
       transition: background 0.15s, color 0.15s, border-color 0.15s;
       margin-top: 0.1rem;
       display: inline-block;
     }
 
-    .pub-doi:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .pub-doi:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg); }
+    .journey-intro { font-size: 0.98rem; color: var(--muted); max-width: 60ch; margin: -1.5rem 0 2.5rem; line-height: 1.65; }
+    .journey { list-style: none; position: relative; }
+    .journey::before { content: ""; position: absolute; top: 0.6rem; bottom: 0.6rem; left: 50%; width: 2px; margin-left: -1px; background: var(--border); }
+    .stage { display: grid; grid-template-columns: 1fr 2.5rem 1fr; padding-bottom: 2.4rem; position: relative; }
+    .stage:last-child { padding-bottom: 0; }
+    .jn-when { padding: 0.25rem 0 0; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; color: var(--accent); }
+    .jn-dot { grid-column: 2; grid-row: 1; justify-self: center; margin-top: 0.4rem; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg); position: relative; z-index: 1; }
+    .stage:nth-child(odd) .jn-card { grid-column: 3; grid-row: 1; padding-left: 1.1rem; }
+    .stage:nth-child(odd) .jn-when { grid-column: 1; grid-row: 1; text-align: right; padding-right: 1.1rem; }
+    .stage:nth-child(even) .jn-card { grid-column: 1; grid-row: 1; padding-right: 1.1rem; text-align: right; }
+    .stage:nth-child(even) .jn-when { grid-column: 3; grid-row: 1; text-align: left; padding-left: 1.1rem; }
+    .stage:nth-child(even) .jn-links { justify-content: flex-end; }
+    .stage:nth-child(even) .jn-desc { margin-left: auto; }
+    .jn-card h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; margin-bottom: 0.15rem; }
+    .jn-org { font-size: 0.86rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .jn-desc { font-size: 0.92rem; line-height: 1.65; color: var(--muted-strong); max-width: 62ch; }
+    .jn-links { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }
+    .jn-chip {
+      display: inline-flex; align-items: center; gap: 0.5rem; min-height: 34px;
+      padding: 0.3rem 0.75rem; border: 1px solid var(--border); border-radius: 999px;
+      background: var(--surface); color: var(--text); font-size: 0.78rem; line-height: 1.3; text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    a.jn-chip:hover { border-color: var(--accent); }
+    .jn-chip b { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+    .jn-chip.static { background: transparent; color: var(--muted-strong); }
+    /* life events: quieter, hollow dot, serif italic */
+    .stage.life .jn-dot { width: 16px; height: 16px; margin-top: 0.3rem; background: var(--bg); border: 3px solid var(--accent); }
+    .stage.life .jn-when { color: var(--muted); }
+    .stage.life .jn-card h3 { font-style: italic; font-size: 1.1rem; }
+    .stage.life .jn-desc { font-style: italic; }
+
+    /* ── CODE & DATA ── */
+    #code { background: var(--surface); border-top: 1px solid var(--border); }
+    #code[hidden] { display: none; }
+    .code-intro { font-size: 0.95rem; color: var(--muted); margin: -2rem 0 2.5rem; }
+    .code-intro a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .code-intro a:hover { text-decoration: underline; }
+    .code-sub { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.25rem; }
+    .code-sub[hidden] { display: none; }
+    .paper-code { margin-bottom: 3rem; }
+    .pc-row { display: grid; grid-template-columns: 4.5rem 1fr auto; gap: 1.25rem; align-items: baseline; padding: 1.1rem 0; border-top: 1px solid var(--border); }
+    .pc-row:last-child { border-bottom: 1px solid var(--border); }
+    .pc-year { font-family: var(--serif); font-size: 1.6rem; line-height: 1; color: var(--accent); }
+    .pc-cite { font-family: var(--serif); font-size: 1.1rem; line-height: 1.3; }
+    .pc-cite i { font-family: var(--sans); font-size: 0.85rem; color: var(--muted); margin-left: 0.4rem; }
+    .pc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.9rem; }
+    .repo-link { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 0.35rem; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.8rem; color: var(--accent); text-decoration: none; word-break: break-all; }
+    .repo-link:hover { text-decoration: underline; }
+    .lang { font-family: var(--sans); font-size: 0.72rem; color: var(--subtle); white-space: nowrap; }
+    .lang::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--subtle); margin-right: 0.35rem; }
+    .lang.R::before { background: #276dc3; } .lang.Python::before { background: #3572a5; }
+    .pc-row .pub-doi { align-self: center; }
+    .tool-code { display: grid; grid-template-columns: 1fr 1fr; column-gap: 2.5rem; }
+    .tc-item { padding: 1rem 0; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.15rem; }
+    .tc-item p { font-size: 0.86rem; line-height: 1.55; color: var(--muted-strong); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* ── PUBLICATION EXTRAS ── */
+    .pub-why { font-size: 0.82rem; line-height: 1.55; color: var(--muted-strong); margin-top: 0.4rem; }
+    .pub-why span { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-right: 0.4rem; }
+    .pub-all { margin-top: 2rem; }
+    .pub-all a { font-size: 0.9rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+    .pub-all a:hover { text-decoration: underline; }
 
     /* ── CONTACT ── */
     #contact { background: #141412; }
@@ -1034,6 +1092,7 @@
       align-items: center;
     }
 
+    footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; display: inline-block; padding: 0.7rem 0.2rem; }
     footer p { font-size: 0.75rem; color: rgba(255,255,255,0.6); letter-spacing: 0.04em; }
 
     /* ── REVEAL ── */
@@ -1047,6 +1106,7 @@
     .d1.in { animation-delay: 0.08s; }
     .d2.in { animation-delay: 0.16s; }
     .d3.in { animation-delay: 0.24s; }
+    @media (max-width: 1100px) and (min-width: 861px) { .nav-links a { padding: 0.4rem 0.5rem; } .nav-inner { padding: 0 1.5rem; } }
     @media (prefers-reduced-motion: reduce) {
       .reveal.in { animation: none; }
     }
@@ -1094,12 +1154,12 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--accent);
-      background: rgba(29,61,122,0.08);
+      background: rgba(var(--accent-rgb),0.08);
       padding: 0.2rem 0.55rem;
       border-radius: 999px;
       white-space: nowrap;
     }
-    .pub-badge.role { color: #fff; background: var(--accent); }
+    .pub-badge.role { color: var(--on-accent); background: var(--accent); }
 
     /* ── COPY EMAIL BUTTON ── */
     .copy-email {
@@ -1146,9 +1206,11 @@
       .stats-grid, .hero-meta { max-width: 100%; }
 
       .section-wrap { padding: 4.5rem 1.5rem; }
-      .research-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .code-intro { margin-top: -2.5rem; }
+      .pub-all a { display: inline-block; padding: 0.6rem 0; }
+      .code-intro a { display: inline-block; padding: 0.5rem 0; }
       footer { flex-direction: column; gap: 0.5rem; padding: 1.5rem; text-align: center; }
 
       /* phone readability: calmer cell field, larger type, 44px tap targets */
@@ -1169,6 +1231,22 @@
       .contact-list { gap: 0.75rem; }
     }
 
+    @media (max-width: 700px) {
+      .pc-row { grid-template-columns: 1fr; gap: 0.4rem; }
+      .tool-code { grid-template-columns: 1fr; }
+      .pc-row .pub-doi { justify-self: start; margin-top: 0.4rem; min-height: 44px; display: inline-flex; align-items: center; }
+      .repo-link { min-height: 44px; }
+      .journey::before { left: 0.75rem; }
+      .stage { grid-template-columns: 1.5rem 1fr; column-gap: 0.75rem; }
+      .stage:nth-child(n) .jn-when { grid-column: 2; grid-row: 1; text-align: left; padding: 0 0 0.2rem; }
+      .jn-dot { grid-column: 1; grid-row: 1; margin-top: 0.15rem; }
+      .stage.life .jn-dot { margin-top: 0.05rem; }
+      .stage:nth-child(n) .jn-card { grid-column: 2; grid-row: 2; padding: 0; text-align: left; }
+      .stage:nth-child(n) .jn-links { justify-content: flex-start; }
+      .stage:nth-child(n) .jn-desc { margin-left: 0; }
+      .jn-chip { min-height: 44px; }
+    }
+
     /* ── PRINT (clean one-pager) ── */
     @media print {
       :root { --nav-h: 0px; }
@@ -1183,7 +1261,7 @@
       .photo-frame { width: 90px; height: 90px; box-shadow: none; transform: none !important; }
       .stats-grid { box-shadow: none; max-width: 360px; }
       section { page-break-inside: avoid; }
-      .pub-row, .r-card, .skill-tier { page-break-inside: avoid; }
+      .pub-row, .skill-tier, .stage, .repo { page-break-inside: avoid; }
       a { color: #000; text-decoration: none; }
       .pub-row.featured { box-shadow: none; border-left: 3px solid #000; }
       h1.hero-name { font-size: 28pt; }
@@ -1201,7 +1279,9 @@
     <a href="#home" class="nav-name">Dillon Corvino</a>
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="#research">Research</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#code">Code</a></li>
         <li><a href="#publications">Publications</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -1217,7 +1297,9 @@
 
 <!-- MOBILE DRAWER -->
 <div class="mobile-drawer" id="mobile-drawer" aria-label="Navigation menu">
-  <a href="#research">Research</a>
+  <a href="#experience">Experience</a>
+  <a href="#expertise">Expertise</a>
+  <a href="#code">Code</a>
   <a href="#publications">Publications</a>
   <a href="#contact">Contact</a>
   <a href="CV_Dillon_Corvino.pdf" download class="drawer-cv">Download CV (PDF)</a>
@@ -1238,7 +1320,7 @@
       <p class="hero-bio reveal d3">
         My focus is understanding cytotoxic lymphocyte biology and advancing cell therapy strategies from discovery through publication.
       </p>
-      <p class="hero-open reveal d3">Open to industry roles in immuno-oncology and cell therapy across the EU and Australia</p>
+      <p class="hero-open reveal d3">Open to Scientist / Senior Scientist roles in cell therapy and computational immunology across the EU and Australia</p>
       <div class="hero-actions reveal d3">
         <a href="CV_Dillon_Corvino.pdf" download class="btn-primary">
           <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -1265,8 +1347,8 @@
           <div class="stat-l">h-index</div>
         </div>
         <div class="stat">
-          <div class="stat-n">6+</div>
-          <div class="stat-l">Yrs postdoc</div>
+          <div class="stat-n">20+</div>
+          <div class="stat-l">Publications</div>
         </div>
         <div class="stat">
           <div class="stat-n">€110k</div>
@@ -1277,84 +1359,137 @@
   </div>
 </section>
 
-<!-- RESEARCH + SKILLS -->
-<section id="research">
+<!-- EXPERIENCE -->
+<section id="experience">
   <div class="section-wrap">
     <div class="section-header reveal">
       <span class="section-num">01</span>
-      <h2 class="section-title">Research</h2>
+      <h2 class="section-title">Experience</h2>
     </div>
 
-    <div class="research-grid">
-      <div class="r-card reveal">
-        <div class="r-card-icon" aria-hidden="true">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-          </svg>
+    <ol class="journey">
+      <li class="stage career reveal">
+        <p class="jn-when">Jun 2025 – present</p>
+        <span class="jn-dot" aria-hidden="true"></span>
+        <div class="jn-card">
+          <h3>Postdoctoral Researcher</h3>
+          <p class="jn-org">University Hospital Bonn · Abdullah Lab</p>
+          <p class="jn-desc">Leading an independent programme on unconventional T cell state transitions and tissue-resident immunity in antiviral and chronic disease (LCMV, liver fibrosis). Hiring lead for 3 PhD students and 2 technicians.</p>
+          <ul class="jn-links">
+            <li><a class="jn-chip" href="https://github.com/Eomesodermin/nkg7-binder-design" target="_blank" rel="noopener noreferrer"><b>Code</b>nkg7-binder-design<span aria-hidden="true"> ↗</span></a></li>
+            <li><a class="jn-chip" href="https://github.com/Eomesodermin/nkg7-structural-analysis" target="_blank" rel="noopener noreferrer"><b>Code</b>nkg7-structural-analysis<span aria-hidden="true"> ↗</span></a></li>
+            <li><a class="jn-chip" href="https://github.com/Eomesodermin/Thymic_NK_development" target="_blank" rel="noopener noreferrer"><b>Code</b>Thymic_NK_development<span aria-hidden="true"> ↗</span></a></li>
+          </ul>
         </div>
-        <h3>Cytotoxic lymphocyte biology</h3>
-        <p class="r-card-lead">NK cell plasticity and dysfunction in the tumour microenvironment.</p>
-        <div class="chip-row">
-          <span class="chip">CD8 T cell states</span>
-          <span class="chip">Type I IFN dysfunction</span>
-          <span class="chip">Unconventional T cells</span>
-          <span class="chip">Anti-tumour &amp; anti-viral</span>
+      </li>
+      <li class="stage life reveal">
+        <p class="jn-when">2024</p>
+        <span class="jn-dot" aria-hidden="true"></span>
+        <div class="jn-card">
+          <h3>Our daughter was born</h3>
+          <p class="jn-desc">Our family grew.</p>
         </div>
-      </div>
-      <div class="r-card reveal d1">
-        <div class="r-card-icon" aria-hidden="true">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h2v5H7zM11 8h2v3h-2zM15 8h2v7h-2z"/>
-          </svg>
+      </li>
+      <li class="stage career reveal">
+        <p class="jn-when">Jun 2023 – present</p>
+        <span class="jn-dot" aria-hidden="true"></span>
+        <div class="jn-card">
+          <h3>Scientific Consultant</h3>
+          <p class="jn-org">Axelia Oncology · Melbourne, Australia</p>
+          <p class="jn-desc">Immunological data analysis and interpretation for a clinical-stage innate immunotherapy programme in solid tumours. The industry side of the same questions.</p>
         </div>
-        <h3>Single-cell &amp; spatial multi-omics</h3>
-        <p class="r-card-lead">Independent end-to-end analysis pipelines, run on HPC.</p>
-        <div class="chip-row">
-          <span class="chip">scRNA-seq</span>
-          <span class="chip">CITE-seq</span>
-          <span class="chip">scATAC-seq</span>
-          <span class="chip">scTCR-seq</span>
-          <span class="chip">Spatial transcriptomics</span>
-          <span class="chip">High-multiplex imaging</span>
+      </li>
+      <li class="stage career reveal">
+        <p class="jn-when">Mar 2020 – Jun 2025</p>
+        <span class="jn-dot" aria-hidden="true"></span>
+        <div class="jn-card">
+          <h3>Postdoctoral Researcher</h3>
+          <p class="jn-org">University Hospital Bonn · Bald Lab · Bonn, Germany</p>
+          <p class="jn-desc">Owned the NK cell cancer immunotherapy programme. Ran single-cell and spatial multi-omics analyses end to end, engineered primary human NK and CD8 T cells, and secured the BMBF GO-Bio grant as sole PI.</p>
+          <ul class="jn-links">
+            <li><a class="jn-chip" href="https://doi.org/10.1002/eji.202551885" target="_blank" rel="noopener noreferrer"><b>Paper</b>NKG7 as a stable cytotoxicity marker · EJI 2025<span aria-hidden="true"> ↗</span></a></li>
+            <li><a class="jn-chip" href="https://doi.org/10.1002/eji.202451371" target="_blank" rel="noopener noreferrer"><b>Paper</b>Type I IFN T cell state · EJI 2025<span aria-hidden="true"> ↗</span></a></li>
+            <li><a class="jn-chip" href="https://github.com/Eomesodermin/Corvino_etal_2024_EJI" target="_blank" rel="noopener noreferrer"><b>Code</b>Corvino_etal_2024_EJI<span aria-hidden="true"> ↗</span></a></li>
+            <li><a class="jn-chip" href="https://doi.org/10.1038/s41467-024-48416-9" target="_blank" rel="noopener noreferrer"><b>Paper</b>GLORIA phase I/II glioblastoma trial · Nat Commun 2024<span aria-hidden="true"> ↗</span></a></li>
+            <li><a class="jn-chip" href="https://doi.org/10.3324/haematol.2023.283758" target="_blank" rel="noopener noreferrer"><b>Paper</b>Tregs vs bispecific antibodies · Haematologica 2024<span aria-hidden="true"> ↗</span></a></li>
+            <li><span class="jn-chip static"><b>Grant</b>BMBF GO-Bio Initial · €100k · sole PI</span></li>
+            <li><span class="jn-chip static"><b>Grant</b>ImmunoSensation2 Innovation Fund · €10k</span></li>
+          </ul>
         </div>
-      </div>
-      <div class="r-card reveal d2">
-        <div class="r-card-icon" aria-hidden="true">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 9H17v1.5c0 .83-.67 1.5-1.5 1.5S14 11.33 14 10.5 14.67 9 15.5 9z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 15H7v-1.5c0-.83.67-1.5 1.5-1.5S10 12.67 10 13.5 9.33 15 8.5 15z"/>
-          </svg>
+      </li>
+      <li class="stage life reveal">
+        <p class="jn-when">Mar 2020</p>
+        <span class="jn-dot" aria-hidden="true"></span>
+        <div class="jn-card">
+          <h3>Moved from Brisbane to Bonn</h3>
+          <p class="jn-desc">New country, new lab, new language. Australia to Germany, and the start of the NK cell immunotherapy programme.</p>
         </div>
-        <h3>Cell engineering &amp; therapy</h3>
-        <p class="r-card-lead">Genetic engineering of primary human lymphocytes.</p>
-        <div class="chip-row">
-          <span class="chip">CRISPR KO / KI / OE</span>
-          <span class="chip">Primary NK &amp; CD8 T cells</span>
-          <span class="chip">CAR-NK</span>
-          <span class="chip">CAR-T</span>
-          <span class="chip">Preclinical models</span>
+      </li>
+      <li class="stage career reveal">
+        <p class="jn-when">Sep 2019 – Feb 2020</p>
+        <span class="jn-dot" aria-hidden="true"></span>
+        <div class="jn-card">
+          <h3>Postdoctoral Researcher</h3>
+          <p class="jn-org">QIMR Berghofer · Brisbane, Australia</p>
+          <p class="jn-desc">Single-cell profiling of tumour-infiltrating NK and CD8 T cells in head and neck squamous cell carcinoma.</p>
+          <ul class="jn-links">
+            <li><a class="jn-chip" href="https://doi.org/10.1038/s41590-020-0758-6" target="_blank" rel="noopener noreferrer"><b>Paper</b>NKG7 regulates cytotoxic granule exocytosis · Nat Immunol 2020<span aria-hidden="true"> ↗</span></a></li>
+            <li><a class="jn-chip" href="https://doi.org/10.1016/j.immuni.2020.09.010" target="_blank" rel="noopener noreferrer"><b>Paper</b>CD155 and CD226 degradation · Immunity 2020<span aria-hidden="true"> ↗</span></a></li>
+          </ul>
         </div>
-      </div>
-      <div class="r-card reveal d3">
-        <div class="r-card-icon" aria-hidden="true">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-          </svg>
+      </li>
+      <li class="stage career reveal">
+        <p class="jn-when">2015 – 2019</p>
+        <span class="jn-dot" aria-hidden="true"></span>
+        <div class="jn-card">
+          <h3>PhD, Immunology</h3>
+          <p class="jn-org">QIMR Berghofer / University of Queensland · Supervisor Prof. Rajiv Khanna</p>
+          <p class="jn-desc">Thesis: strategies for improving adoptive T-cell immunotherapy.</p>
+          <ul class="jn-links">
+            <li><a class="jn-chip" href="https://doi.org/10.1172/JCI128323" target="_blank" rel="noopener noreferrer"><b>Paper</b>T cell repertoire remodelling after T cell therapy · JCI 2019<span aria-hidden="true"> ↗</span></a></li>
+            <li><span class="jn-chip static"><b>Patent</b>Provisional AU 2017904567 · immunocompetence biomarkers</span></li>
+          </ul>
         </div>
-        <h3>Translational immunology</h3>
-        <p class="r-card-lead">Reverse-translational discovery — bench to publication.</p>
-        <div class="chip-row">
-          <span class="chip">Clinical immune phenotyping</span>
-          <span class="chip">Biomarker development</span>
-          <span class="chip">Patient tissue</span>
-          <span class="chip">Computational analysis</span>
+      </li>
+      <li class="stage career reveal">
+        <p class="jn-when">2011 – 2014</p>
+        <span class="jn-dot" aria-hidden="true"></span>
+        <div class="jn-card">
+          <h3>BBiomedSci, Honours Class I</h3>
+          <p class="jn-org">Griffith University · Australia</p>
+          <p class="jn-desc">Where the lab work started.</p>
         </div>
-      </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- RESEARCH + SKILLS -->
+<section id="expertise">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Core expertise</h2>
     </div>
 
     <!-- SKILLS -->
     <div class="skills-section reveal">
-      <p class="skills-header">Core expertise</p>
       <div class="skills-grid">
+
+        <div class="skill-tier tier-im">
+          <span class="skill-cat">Immunology</span>
+          <div class="skill-sig">
+            <span class="s-pill sig">NK cell plasticity &amp; dysfunction in tumours</span>
+            <span class="s-pill sig">CD8 T cell states · Type I IFN dysfunction</span>
+            <span class="s-pill sig">Unconventional &amp; tissue-resident T cells</span>
+          </div>
+          <div class="skill-sub">
+            <span class="s-pill sub">Anti-tumour &amp; anti-viral immunity</span>
+            <span class="s-pill sub">Translational &amp; reverse-translational discovery</span>
+            <span class="s-pill sub">Clinical immune phenotyping · patient tissue</span>
+            <span class="s-pill sub">Biomarker development</span>
+          </div>
+        </div>
 
         <div class="skill-tier tier-wl">
           <span class="skill-cat">Wet Lab</span>
@@ -1366,12 +1501,10 @@
           </div>
           <div class="skill-sub">
             <span class="s-pill sub">CAR-NK &amp; CAR-T engineering</span>
-            <span class="s-pill sub">FACS sorting &amp; high-dim panel design</span>
+            <span class="s-pill sub">FACS sorting &amp; panel design</span>
             <span class="s-pill sub">Lentiviral / adenoviral overexpression</span>
-            <span class="s-pill sub">Murine tumour models</span>
-            <span class="s-pill sub">LCMV acute &amp; chronic infection</span>
-            <span class="s-pill sub">Organoids · ALI · tissue-fragment cultures</span>
-            <span class="s-pill sub">CAM (in ovo) assays</span>
+            <span class="s-pill sub">Syngeneic tumour &amp; LCMV infection models</span>
+            <span class="s-pill sub">Organoids · ALI · tissue fragments · CAM assays</span>
             <span class="s-pill sub">Functional assays — cytotoxicity, ICS, degranulation</span>
           </div>
         </div>
@@ -1380,22 +1513,19 @@
           <span class="skill-cat">Computational</span>
           <div class="skill-sig">
             <span class="s-pill sig">scRNA-seq · CITE-seq · scATAC-seq · scTCR-seq</span>
-            <span class="s-pill sig">R / tidyverse</span>
+            <span class="s-pill sig">R / tidyverse · ggplot2 · Quarto</span>
             <span class="s-pill sig">HPC execution</span>
           </div>
           <div class="skill-sub">
             <span class="s-pill sub">Spatial transcriptomics &amp; imaging</span>
-            <span class="s-pill sub">Bulk RNA · TCR · DNA-seq &amp; WES</span>
-            <span class="s-pill sub">Next-Gen sequence alignment</span>
-            <span class="s-pill sub">Whole-genome CRISPR screen</span>
-            <span class="s-pill sub">Pseudotime &amp; trajectory inference</span>
-            <span class="s-pill sub">Nextflow · Snakemake · SLURM</span>
-            <span class="s-pill sub">Conda / Mamba</span>
-            <span class="s-pill sub">Integration &amp; batch correction</span>
-            <span class="s-pill sub">GRN &amp; cell–cell communication</span>
-            <span class="s-pill sub">TCR repertoire analysis</span>
-            <span class="s-pill sub">Applied ML &amp; TCR embedding</span>
-            <span class="s-pill sub">Scientific viz · Illustrator</span>
+            <span class="s-pill sub">Bulk RNA · TCR · WES</span>
+            <span class="s-pill sub">CellRanger · STARsolo · Salmon</span>
+            <span class="s-pill sub">Harmony integration · pseudobulk DE</span>
+            <span class="s-pill sub">Trajectory &amp; RNA velocity · SCENIC</span>
+            <span class="s-pill sub">Cell–cell communication · CellChat · NicheNet</span>
+            <span class="s-pill sub">TCR repertoire · scRepertoire · immunarch</span>
+            <span class="s-pill sub">Nextflow · Snakemake · SLURM · Apptainer</span>
+            <span class="s-pill sub">Python · applied ML</span>
           </div>
         </div>
 
@@ -1410,7 +1540,6 @@
             <span class="s-pill sub">Established 3 institute-wide platforms (flow, multi-omics, organoids)</span>
             <span class="s-pill sub">Mentorship of 10+ PhD / MSc / BSc students</span>
             <span class="s-pill sub">International collaboration across 4 continents</span>
-            <span class="s-pill sub">20+ publications</span>
             <span class="s-pill sub">Peer reviewer · Nat Comms, Immunity, Cancer Immunol Res</span>
             <span class="s-pill sub">Scientific consultant · Axelia Oncology</span>
             <span class="s-pill sub">Inventor · provisional patent (immunocompetence biomarkers)</span>
@@ -1422,11 +1551,26 @@
   </div>
 </section>
 
+<!-- CODE (auto-filled from GitHub pinned repos via data/site-data.json) -->
+<section id="code" hidden>
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Code</h2>
+    </div>
+    <p class="code-intro reveal">See <a href="https://github.com/Eomesodermin" target="_blank" rel="noopener noreferrer">github.com/Eomesodermin</a> for all public repositories.</p>
+    <h3 class="code-sub reveal">Code behind the papers</h3>
+    <div class="paper-code reveal" id="paper-code"></div>
+    <h3 class="code-sub reveal" id="tools-sub" hidden>Tools and analyses</h3>
+    <div class="tool-code reveal" id="tool-code"></div>
+  </div>
+</section>
+
 <!-- PUBLICATIONS -->
 <section id="publications">
   <div class="section-wrap">
     <div class="section-header reveal">
-      <span class="section-num">02</span>
+      <span class="section-num">04</span>
       <h2 class="section-title">Publications</h2>
     </div>
 
@@ -1455,6 +1599,7 @@
           <p class="pub-authors"><strong>Corvino D</strong>, Batstone M, Hughes BGM, Kempchen T, Ng SS, Salim N, et al.</p>
           <p class="pub-title">Type I Interferon Drives a Cellular State Inert to TCR-Stimulation and Could Impede Effective T-Cell Differentiation in Cancer</p>
           <p class="pub-venue">European Journal of Immunology, 2025</p>
+          <p class="pub-why"><span>Why it matters</span> A candidate mechanism for T cell therapy failure, and a target for improving personalised immunotherapy.</p>
         </div>
         <a class="pub-doi" href="https://doi.org/10.1002/eji.202451371" target="_blank" rel="noopener noreferrer">DOI ↗</a>
       </div>
@@ -1468,6 +1613,7 @@
           <p class="pub-authors">Turiello R, Ng SS, Tan E, … <strong>Corvino D</strong></p>
           <p class="pub-title">NKG7 is a stable marker of cytotoxicity across immune contexts and within the tumor microenvironment</p>
           <p class="pub-venue">European Journal of Immunology, 2025</p>
+          <p class="pub-why"><span>Why it matters</span> A stable cytotoxicity readout with use for patient stratification and immune monitoring in the clinic.</p>
         </div>
         <a class="pub-doi" href="https://doi.org/10.1002/eji.202551885" target="_blank" rel="noopener noreferrer">DOI ↗</a>
       </div>
@@ -1479,6 +1625,7 @@
           <p class="pub-authors">Giordano FA, Layer JP, … <strong>Corvino D</strong>, et al.</p>
           <p class="pub-title">L-RNA aptamer-based CXCL12 inhibition combined with radiotherapy in newly-diagnosed glioblastoma: dose escalation of the phase I/II GLORIA trial</p>
           <p class="pub-venue">Nature Communications, 2024</p>
+          <p class="pub-why"><span>Why it matters</span> Phase I/II evidence for adding CXCL12 inhibition to radiotherapy in newly diagnosed glioblastoma.</p>
         </div>
         <a class="pub-doi" href="https://doi.org/10.1038/s41467-024-48416-9" target="_blank" rel="noopener noreferrer">DOI ↗</a>
       </div>
@@ -1497,6 +1644,7 @@
           <p class="pub-authors">Casey M, Lee C, Kwok WY, … <strong>Corvino D</strong>, et al.</p>
           <p class="pub-title">Regulatory T cells hamper the efficacy of T-cell-engaging bispecific antibody therapy</p>
           <p class="pub-venue">Haematologica, 2024</p>
+          <p class="pub-why"><span>Why it matters</span> Regulatory T cells limit the efficacy of T-cell-engaging bispecific antibodies, a factor for therapy design.</p>
         </div>
         <a class="pub-doi" href="https://doi.org/10.3324/haematol.2023.283758" target="_blank" rel="noopener noreferrer">DOI ↗</a>
       </div>
@@ -1548,6 +1696,7 @@
           <p class="pub-authors">Braun M, … <strong>Corvino D</strong>, … Bald T</p>
           <p class="pub-title">CD155 on Tumor Cells Drives Resistance to Immunotherapy by Inducing the Degradation of the Activating Receptor CD226 in CD8+ T Cells</p>
           <p class="pub-venue">Immunity, 2020</p>
+          <p class="pub-why"><span>Why it matters</span> CD226 degradation as an immunotherapy resistance mechanism, informing co-stimulatory target selection and combinations.</p>
         </div>
         <a class="pub-doi" href="https://doi.org/10.1016/j.immuni.2020.09.010" target="_blank" rel="noopener noreferrer">DOI ↗</a>
       </div>
@@ -1557,6 +1706,7 @@
           <p class="pub-authors">Ng SS, … <strong>Corvino D</strong>, … Engwerda CR</p>
           <p class="pub-title">The NK cell granule protein NKG7 regulates cytotoxic granule exocytosis and inflammation</p>
           <p class="pub-venue">Nature Immunology, 2020</p>
+          <p class="pub-why"><span>Why it matters</span> Defines an effector pathway with direct relevance to cell therapy potency and target biology.</p>
         </div>
         <a class="pub-doi" href="https://doi.org/10.1038/s41590-020-0758-6" target="_blank" rel="noopener noreferrer">DOI ↗</a>
       </div>
@@ -1568,9 +1718,12 @@
           <p class="pub-authors">Smith C, <strong>Corvino D</strong>, Beagley L, et al.</p>
           <p class="pub-title">T cell repertoire remodeling following post-transplant T cell therapy coincides with clinical response</p>
           <p class="pub-venue">Journal of Clinical Investigation, 2019</p>
+          <p class="pub-why"><span>Why it matters</span> Supports TCR-seq-based monitoring and patient selection for adoptive T cell therapy.</p>
         </div>
         <a class="pub-doi" href="https://doi.org/10.1172/JCI128323" target="_blank" rel="noopener noreferrer">DOI ↗</a>
       </div>
+
+      <p class="pub-all"><a href="https://scholar.google.com/citations?user=1-fxfDkAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" rel="noopener noreferrer">See all publications on Google Scholar →</a></p>
 
     </div>
   </div>
@@ -1580,13 +1733,13 @@
 <section id="contact">
   <div class="section-wrap">
     <div class="section-header reveal">
-      <span class="section-num">03</span>
+      <span class="section-num">05</span>
       <h2 class="section-title">Contact</h2>
     </div>
     <div class="contact-grid">
       <div class="reveal">
         <p class="contact-intro">
-          Open to discussing <strong>collaborations</strong>, <strong>translational research opportunities</strong>, and <strong>industry roles</strong> in immuno-oncology, cell therapy, and computational biology — across the <strong>EU and Australia</strong>.
+          Open to <strong>Scientist</strong> and <strong>Senior Scientist</strong> roles in <strong>cell therapy</strong> and <strong>computational immunology</strong> across the <strong>EU and Australia</strong>, and to <strong>collaborations</strong> and <strong>translational research</strong> opportunities.
         </p>
         <div class="contact-cv-block">
           <a href="CV_Dillon_Corvino.pdf" download class="btn-cv-contact">
@@ -1635,7 +1788,7 @@
 
 <footer>
   <p>Dillon Corvino, PhD &ensp;·&ensp; University Hospital Bonn</p>
-  <p>© 2026 &ensp;·&ensp; Last updated <time id="last-updated" datetime="2026-06">June 2026</time></p>
+  <p><a href="impressum.html">Impressum &amp; Privacy</a> &ensp;·&ensp; © 2026 &ensp;·&ensp; Last updated <time id="last-updated" datetime="2026-06">June 2026</time></p>
 </footer>
 
 <script>
@@ -1697,6 +1850,32 @@
           lu.setAttribute('datetime', d.updated);
         }
       }
+      const mk = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt) e.textContent = txt; return e; };
+      const repoLink = (r) => {
+        const a = mk('a', 'repo-link', r.name); a.href = r.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+        a.title = 'View on GitHub'; a.dataset.track = 'github-repo';
+        return a;
+      };
+      const lang = (r) => r.language ? mk('span', 'lang ' + r.language, r.language) : null;
+      const papers = document.getElementById('paper-code'), tools = document.getElementById('tool-code');
+      (d.repos || []).forEach(r => {
+        if (r.paper) {
+          const row = mk('div', 'pc-row');
+          const cite = mk('div', 'pc-cite', r.paper.cite + ' '); cite.appendChild(mk('i', '', r.paper.journal));
+          const rl = repoLink(r), l = lang(r), meta = mk('div', 'pc-meta'); meta.appendChild(rl); if (l) meta.appendChild(l);
+          const main = mk('div'); main.append(cite, meta);
+          const doi = mk('a', 'pub-doi', 'Paper ↗'); doi.href = r.paper.doi; doi.target = '_blank'; doi.rel = 'noopener noreferrer';
+          row.append(mk('div', 'pc-year', String(r.paper.year)), main, doi);
+          papers.appendChild(row);
+        } else {
+          const it = mk('div', 'tc-item'); it.appendChild(repoLink(r));
+          if (r.description) it.appendChild(mk('p', '', r.description));
+          const l = lang(r); if (l) it.appendChild(l);
+          tools.appendChild(it);
+        }
+      });
+      if (tools.children.length) document.getElementById('tools-sub').hidden = false;
+      if (papers.children.length || tools.children.length) document.getElementById('code').hidden = false;
       const list = document.getElementById('latest-pubs-list');
       const wrap = document.getElementById('latest-pubs');
       (d.latest || []).forEach(p => {
@@ -1962,7 +2141,29 @@
       (function loop(now) { step(now - t0); pushPhoto(); requestAnimationFrame(loop); })(t0);
     }
   })();
-</script>
 
+  /* ── ANALYTICS (GoatCounter: cookieless, no personal data) ──
+     Set GC_CODE to your GoatCounter site code (the part before .goatcounter.com).
+     While it is empty, nothing is loaded and nothing is tracked. */
+  (function () {
+    const GC_CODE = '';
+    if (!GC_CODE) return;
+    const sc = document.createElement('script');
+    sc.async = true;
+    sc.src = 'https://gc.zgo.at/count.js';
+    sc.dataset.goatcounter = 'https://' + GC_CODE + '.goatcounter.com/count';
+    document.head.appendChild(sc);
+    const ev = (name) => { try { window.goatcounter && window.goatcounter.count({ path: name, title: name, event: true }); } catch (_) {} };
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a, button'); if (!a) return;
+      if (a.matches('a[download]')) ev('cv-download');
+      else if (a.id === 'copy-email') ev('email-copy');
+      else if (a.matches('a[href^="mailto:"]')) ev('email-click');
+      else if (a.matches('a[href*="linkedin.com"]')) ev('linkedin-click');
+      else if (a.matches('a[href*="scholar.google"]')) ev('scholar-click');
+      else if (a.matches('a[href*="github.com"]')) ev('github-click');
+    });
+  })();
+</script>
 </body>
 </html>

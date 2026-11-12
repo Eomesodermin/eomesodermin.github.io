@@ -1,4 +1,4 @@
-name: Update citations and latest papers
+name: Update citations, latest papers and pinned repos
 
 on:
   schedule:
@@ -17,12 +17,13 @@ jobs:
         run: python3 scripts/update_site_data.py
         env:
           OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}   # optional; works without
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}           # for the pinned-repos GraphQL query
       - name: Commit if changed
         run: |
           if [ -n "$(git status --porcelain data sitemap.xml)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add data/site-data.json sitemap.xml
-            git commit -m "chore: refresh citation metrics and latest papers"
+            git commit -m "chore: refresh citation metrics, latest papers and pinned repos"
             git push
           fi

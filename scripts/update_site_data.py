@@ -14,6 +14,7 @@ import html
 import json
 import os
 import re
+import subprocess
 import sys
 import urllib.parse
 import urllib.request
@@ -21,6 +22,17 @@ import urllib.request
 ORCID = "0000-0003-0683-1369"
 MIN_DATE = "2025-01-01"   # only surface papers published on/after this date
 MAX_LATEST = 5
+GH_USER = "Eomesodermin"
+# pinned repos that should not appear in the "Code & data" section
+EXCLUDE_REPOS = {"eomesodermin.github.io", "Eomesodermin"}
+# paper-code repos always shown (pinned or not), newest first: (repo, citation, journal, year, DOI)
+PAPER_REPOS = [
+    ("Turiello_Ng_etal_EJI_2025", "Turiello, Ng et al.", "European Journal of Immunology", 2025, "https://doi.org/10.1002/eji.202551885"),
+    ("Corvino_etal_2024_EJI", "Corvino et al.", "European Journal of Immunology", 2025, "https://doi.org/10.1002/eji.202451371"),
+    ("Giordano_Layer_Leonardelli_etal_2024_Nature_Coms", "Giordano, Layer, Leonardelli et al.", "Nature Communications", 2024, "https://doi.org/10.1038/s41467-024-48416-9"),
+    ("Hosni_Kilian_etal_Cancer_Research_2023", "Hosni, Kilian et al.", "Cancer Research", 2024, "https://doi.org/10.1158/0008-5472.CAN-23-1398"),
+    ("Braun_et_al_Immunity_2020", "Braun et al.", "Immunity", 2020, "https://doi.org/10.1016/j.immuni.2020.09.010"),
+]
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "site-data.json")
 API = "https://api.openalex.org"
@@ -37,6 +49,59 @@ def get(path, **params):
 
 
 PARTICLES = {"van", "der", "den", "de", "von", "la", "le", "du", "di", "da", "del", "della", "ter", "ten", "dos", "das", "el", "al", "bin"}
+
+
+def github_token():
+    tok = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    if tok:
+        return tok
+    try:  # local runs: reuse the gh CLI login
+        return subprocess.check_output(["gh", "auth", "token"], text=True, timeout=10).strip()
+    except Exception:
+        return None
+
+
+def gql(tok, query, variables):
+    req = urllib.request.Request(
+        "https://api.github.com/graphql",
+        data=json.dumps({"query": query, "variables": variables}).encode(),
+        headers={"Authorization": f"bearer {tok}", "Content-Type": "application/json",
+                 "User-Agent": "dilloncorvino.com site-data updater"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.load(r)["data"]["user"]
+
+
+FIELDS = "name description url stargazerCount isPrivate primaryLanguage{name}"
+
+
+def to_entry(n):
+    return {"name": n["name"], "description": (n["description"] or "").strip(), "url": n["url"],
+            "language": (n["primaryLanguage"] or {}).get("name"), "stars": n["stargazerCount"]}
+
+
+def pinned_repos():
+    """Paper-code repos (always) plus public pinned repos, in display order (None if unavailable)."""
+    tok = github_token()
+    if not tok:
+        return None
+    names = [p[0] for p in PAPER_REPOS]
+    aliases = " ".join(f'r{i}: repository(name:"{n}"){{{FIELDS}}}' for i, n in enumerate(names))
+    q = ("query($u:String!){user(login:$u){"
+         f"pinnedItems(first:6,types:REPOSITORY){{nodes{{... on Repository{{{FIELDS}}}}}}} {aliases}"
+         "}}")
+    d = gql(tok, q, {"u": GH_USER})
+    out = []
+    for i, (name, cite, journal, year, doi) in enumerate(PAPER_REPOS):
+        n = d.get(f"r{i}")
+        if n and not n["isPrivate"]:
+            e = to_entry(n)
+            e["paper"] = {"cite": cite, "journal": journal, "year": year, "doi": doi}
+            out.append(e)
+    have = {e["name"] for e in out}
+    for n in d["pinnedItems"]["nodes"]:
+        if not n["isPrivate"] and n["name"] not in EXCLUDE_REPOS and n["name"] not in have:
+            out.append(to_entry(n))
+    return out
 
 
 def short_name(full):
@@ -110,7 +175,14 @@ def main():
         old = json.load(open(OUT, encoding="utf-8"))
     except Exception:
         old = {}
-    new = {"metrics": metrics, "latest": latest, "source": "OpenAlex"}
+    try:
+        repos = pinned_repos()
+    except Exception as e:  # keep previous list if GitHub is unreachable
+        print(f"Pinned repos unavailable: {e}", file=sys.stderr)
+        repos = None
+    if repos is None:
+        repos = old.get("repos", [])
+    new = {"metrics": metrics, "latest": latest, "repos": repos, "source": "OpenAlex + GitHub"}
     if {k: old.get(k) for k in new} == new:
         print("No change.")
         return 0
