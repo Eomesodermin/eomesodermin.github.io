@@ -7,7 +7,7 @@ Run weekly by .github/workflows/update-site-data.yml; safe to run locally:
 - Metrics: OpenAlex author record (cited_by_count, h_index). These differ slightly
   from Google Scholar, which has no public API.
 - Latest papers: journal articles newer than MIN_DATE whose DOI is not already
-  listed in index.html. Conference abstracts and datasets are skipped.
+  listed in publications.html. Conference abstracts and datasets are skipped.
 """
 import datetime
 import html
@@ -142,8 +142,9 @@ def main():
         "h_index": int(author["summary_stats"]["h_index"]),
     }
 
+    # papers already written into the publications page (the hand-curated list)
     listed = set(m.lower() for m in re.findall(
-        r"doi\.org/([^\"'\s<]+)", open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()))
+        r"doi\.org/([^\"'\s<]+)", open(os.path.join(ROOT, "publications.html"), encoding="utf-8").read()))
 
     works = get(
         "/works",
