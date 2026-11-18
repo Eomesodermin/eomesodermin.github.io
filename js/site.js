@@ -1,0 +1,72 @@
+/* Shared behaviour for every page.
+   data/site-data.json is refreshed weekly by a GitHub Action (OpenAlex metrics, newer papers,
+   repositories). Pages ship static fallback values; this only replaces them when the fetch works. */
+(function () {
+  const mk = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+  const ext = (href, txt, cls) => { const a = mk('a', cls, txt); if (/^https:\/\//.test(href)) { a.href = href; a.target = '_blank'; a.rel = 'noopener noreferrer'; } return a; };
+
+  fetch('data/site-data.json', { cache: 'no-cache' })
+    .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+    .then(d => {
+      const m = d.metrics || {};
+      document.querySelectorAll('[data-metric]').forEach(el => { const v = m[el.dataset.metric]; if (Number.isFinite(v)) el.textContent = v.toLocaleString('en-US'); });
+
+      if (d.updated) {
+        const t = new Date(d.updated + 'T00:00:00Z');
+        if (!isNaN(t)) document.querySelectorAll('[data-updated]').forEach(el => { el.textContent = t.toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }); el.setAttribute('datetime', d.updated); });
+      }
+
+      const repos = (d.repos || []).filter(r => r && /^https:\/\/github\.com\//.test(r.url || ''));
+      document.querySelectorAll('[data-count="repos"]').forEach(el => { if (repos.length) el.textContent = String(repos.length); });
+
+      // code behind the papers
+      const paperBody = document.getElementById('paper-code');
+      const withPaper = repos.filter(r => r.paper);
+      if (paperBody && withPaper.length) {
+        paperBody.replaceChildren(...withPaper.map(r => {
+          const tr = mk('tr'), repo = mk('td', 'repo'), paper = mk('td'), yr = mk('td', 'yr', String(r.paper.year || ''));
+          repo.appendChild(ext(r.url, r.name));
+          paper.append(ext(r.paper.doi, r.paper.cite), ' ', mk('span', 'soft', r.paper.journal || ''));
+          tr.append(repo, paper, yr); return tr;
+        }));
+      }
+      // tools and current projects
+      const toolBody = document.getElementById('tool-code');
+      const tools = repos.filter(r => !r.paper);
+      if (toolBody && tools.length) {
+        toolBody.replaceChildren(...tools.map(r => {
+          const tr = mk('tr'), repo = mk('td', 'repo'), desc = mk('td');
+          repo.appendChild(ext(r.url, r.name)); if (r.language) repo.appendChild(mk('span', 'lang', r.language));
+          desc.textContent = r.description || '';
+          tr.append(repo, desc); return tr;
+        }));
+      }
+
+      // papers newer than the hand-written list
+      const latest = document.getElementById('latest');
+      if (latest && (d.latest || []).length) {
+        const list = latest.querySelector('[data-list]');
+        d.latest.forEach(p => {
+          const row = mk('div', 'pub'), body = mk('div'), au = mk('p', 'au');
+          (p.authors || []).forEach((a, i) => { if (i) au.append(', '); if (a.me) au.appendChild(mk('strong', '', a.name)); else au.append(a.name); });
+          if (p.et_al) au.append(', et al.');
+          body.append(mk('span', 'badge', 'New'), au, mk('p', 'ti', p.title), mk('p', 've', p.venue + ', ' + p.year));
+          row.append(body, ext(p.doi, 'DOI', 'doi'));
+          list.appendChild(row);
+        });
+        latest.hidden = false;
+      }
+    })
+    .catch(() => { /* keep the static values in the HTML */ });
+
+  // copy email (contact page)
+  const btn = document.getElementById('copy-email');
+  if (btn) {
+    const fb = document.getElementById('copied'); let timer;
+    btn.addEventListener('click', async () => {
+      const email = btn.dataset.email;
+      try { await navigator.clipboard.writeText(email); } catch (e) { return; }
+      fb.classList.add('show'); clearTimeout(timer); timer = setTimeout(() => fb.classList.remove('show'), 2000);
+    });
+  }
+})();
