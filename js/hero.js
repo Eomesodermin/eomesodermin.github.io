@@ -22,6 +22,7 @@
   const grad = t => { t = Math.min(0.999, Math.max(0, t)) * (G.length - 1); const i = t | 0, f = t - i; return `rgb(${G[i].map((v, k) => Math.round(v + (G[i + 1][k] - v) * f))})`; };
 
   let ctx, W, H, X, cy, ends, endX, x0, xm, TB, on = false, focus = -1, dots = [];
+  const OFF = [];
 
   stops.forEach((a, i) => {
     const enter = () => { focus = i; if (reduce && on) draw(); }, leave = () => { focus = -1; if (reduce && on) draw(); };
@@ -40,11 +41,18 @@
     X = y => 10 + (y - Y0) / (Y1 - Y0) * (W - 360);
     cy = H * 0.5; ends = [H * 0.24, H * 0.76]; endX = W - 288; x0 = X(NOW); xm = x0 + (endX - x0) * 0.5;
     TB = (endX - x0) / (X(Y0 + 1) - X(Y0)); // branch length in years, so dots keep their speed after the split
+    // labels alternate above and below the line; one that would overlap an earlier label
+    // on the same side moves further out, and its tick line grows to reach it
+    const lefts = [];
     stops.forEach((a, i) => {
       const up = !(i % 2);
       a.classList.toggle('up', up);
-      a.style.left = Math.min(W - 176, Math.max(0, X(STOPS[i].y) - 8)) + 'px';
-      a.style.top = (up ? cy - 52 : cy + 52) + 'px';
+      // shift a label left if it would run into the branch curves that start at "now"
+      lefts[i] = Math.max(0, Math.min(X(STOPS[i].y) - 8, x0 - 172 - 16));
+      a.style.left = lefts[i] + 'px';
+      OFF[i] = 52;
+      for (let j = i - 2; j >= 0; j -= 2) if (lefts[i] < lefts[j] + 172 + 12) OFF[i] = Math.max(OFF[i], OFF[j] + stops[j].offsetHeight + 14);
+      a.style.top = (up ? cy - OFF[i] : cy + OFF[i]) + 'px';
     });
     endsEl.forEach((a, i) => { a.style.top = ends[i] + 'px'; });
     if (!dots.length) dots = Array.from({ length: N }, () => ({
@@ -81,7 +89,7 @@
     STOPS.forEach((s, i) => {
       const x = X(s.y), up = !(i % 2);
       ctx.strokeStyle = focus === i ? INK : SOFT; ctx.lineWidth = focus === i ? 2 : 1;
-      ctx.beginPath(); ctx.moveTo(x, cy); ctx.lineTo(x, up ? cy - 48 : cy + 48); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x, cy); ctx.lineTo(x, up ? cy - OFF[i] + 4 : cy + OFF[i] - 4); ctx.stroke();
       ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(x, cy, focus === i ? 5.5 : 4, 0, 6.283); ctx.fill();
     });
   }
