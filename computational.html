@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Computational biology · Dillon Corvino, PhD</title>
+  <meta name="description" content="Single-cell, spatial and TCR analysis end to end: methods, pipelines, HPC, and the public code behind each paper.">
+  <link rel="canonical" href="https://dilloncorvino.com/computational.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="theme-color" content="#0d0b0e">
+  <link rel="preload" href="fonts/instrumentsans-7.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/site.css">
+  <script src="js/site.js" defer></script>
+</head>
+<body class="comp">
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Main"><a class="who" href="./">Dillon Corvino</a><a href="experience.html">Experience</a><a href="computational.html" aria-current="page">Computational</a><a href="wet-lab.html">Wet lab</a><a href="publications.html">Publications</a><a href="contact.html">Contact</a><a class="cv" href="CV_Dillon_Corvino.pdf" download>Download CV</a></nav>
+<div class="trail" aria-hidden="true"></div>
+<main class="page" id="main">
+  <p class="crumb"><a href="./">Overview</a> / Computational biology</p>
+  <h1 class="t">Computational biology</h1>
+  <div class="intro">
+    <div>
+      <p>I run single-cell, spatial and TCR analyses end to end: from raw reads on the cluster to the figure in the paper. Most of the data comes from experiments I designed or ran, so the analysis starts from knowing the cells.</p>
+      <div class="actions"><a class="btn p" href="CV_Dillon_Corvino.pdf" download>Download CV (PDF)</a><a class="btn" href="https://github.com/Eomesodermin" target="_blank" rel="noopener noreferrer">GitHub profile</a></div>
+    </div>
+    <dl class="facts">
+      <div><dt>public repositories</dt><dd data-count="repos">9</dd></div>
+      <div><dt>papers with code</dt><dd>5</dd></div>
+      <div><dt>languages</dt><dd>R, Python</dd></div>
+      <div><dt>compute</dt><dd>HPC</dd></div>
+    </dl>
+  </div>
+
+  <h2>What I run end to end</h2>
+  <dl class="defs">
+    <dt>Single-cell</dt><dd>scRNA-seq, CITE-seq, scATAC-seq and scTCR-seq. CellRanger, STARsolo.</dd>
+    <dt>Spatial</dt><dd>Spatial transcriptomics and imaging.</dd>
+    <dt>Bulk and repertoire</dt><dd>Bulk RNA-seq (Salmon), TCR repertoire, WES. scRepertoire, immunarch.</dd>
+    <dt>Analysis</dt><dd>Harmony integration, pseudobulk differential expression, trajectories and RNA velocity, SCENIC, cell–cell communication (CellChat, NicheNet).</dd>
+    <dt>Lineage and structure</dt><dd>Single-cell VDJ and somatic mtDNA lineage tracing; protein structure prediction and de novo binder design (RFdiffusion, ProteinMPNN, Boltz-2, Chai-1).</dd>
+    <dt>Pipelines and compute</dt><dd>Nextflow, Snakemake, SLURM, Apptainer on HPC; reproducible reports in Quarto.</dd>
+    <dt>Languages</dt><dd>R with the tidyverse and ggplot2; Python and applied machine learning.</dd>
+  </dl>
+
+  <h2>Code behind the papers</h2>
+  <p class="sub">Analysis code I wrote for published papers, one repository per paper.</p>
+  <table class="tbl">
+    <thead><tr><th scope="col">Repository</th><th scope="col">Paper</th><th scope="col">Year</th></tr></thead>
+    <tbody id="paper-code">
+      <tr><td class="repo"><a href="https://github.com/Eomesodermin/Turiello_Ng_etal_EJI_2025" target="_blank" rel="noopener noreferrer">Turiello_Ng_etal_EJI_2025</a></td><td><a href="https://doi.org/10.1002/eji.202551885" target="_blank" rel="noopener noreferrer">Turiello, Ng et al.</a> <span class="soft">European Journal of Immunology</span></td><td class="yr">2025</td></tr>
+      <tr><td class="repo"><a href="https://github.com/Eomesodermin/Corvino_etal_2024_EJI" target="_blank" rel="noopener noreferrer">Corvino_etal_2024_EJI</a></td><td><a href="https://doi.org/10.1002/eji.202451371" target="_blank" rel="noopener noreferrer">Corvino et al.</a> <span class="soft">European Journal of Immunology</span></td><td class="yr">2025</td></tr>
+      <tr><td class="repo"><a href="https://github.com/Eomesodermin/Giordano_Layer_Leonardelli_etal_2024_Nature_Coms" target="_blank" rel="noopener noreferrer">Giordano_Layer_Leonardelli_etal_2024_Nature_Coms</a></td><td><a href="https://doi.org/10.1038/s41467-024-48416-9" target="_blank" rel="noopener noreferrer">Giordano, Layer, Leonardelli et al.</a> <span class="soft">Nature Communications</span></td><td class="yr">2024</td></tr>
+      <tr><td class="repo"><a href="https://github.com/Eomesodermin/Hosni_Kilian_etal_Cancer_Research_2023" target="_blank" rel="noopener noreferrer">Hosni_Kilian_etal_Cancer_Research_2023</a></td><td><a href="https://doi.org/10.1158/0008-5472.CAN-23-1398" target="_blank" rel="noopener noreferrer">Hosni, Kilian et al.</a> <span class="soft">Cancer Research</span></td><td class="yr">2024</td></tr>
+      <tr><td class="repo"><a href="https://github.com/Eomesodermin/Braun_et_al_Immunity_2020" target="_blank" rel="noopener noreferrer">Braun_et_al_Immunity_2020</a></td><td><a href="https://doi.org/10.1016/j.immuni.2020.09.010" target="_blank" rel="noopener noreferrer">Braun et al.</a> <span class="soft">Immunity</span></td><td class="yr">2020</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Tools and current projects</h2>
+  <table class="tbl">
+    <thead><tr><th scope="col">Repository</th><th scope="col">What it does</th></tr></thead>
+    <tbody id="tool-code">
+      <tr><td class="repo"><a href="https://github.com/Eomesodermin/r-utility-functions" target="_blank" rel="noopener noreferrer">r-utility-functions</a><span class="lang">R</span></td><td>R package of reusable bioinformatics &amp; single-cell helper functions (heatmaps, volcano plots, GO, UMAP optimisation, TCGA survival, colour schemes)</td></tr>
+      <tr><td class="repo"><a href="https://github.com/Eomesodermin/Thymic_NK_development" target="_blank" rel="noopener noreferrer">Thymic_NK_development</a><span class="lang">Python</span></td><td>Do NK cells carry a thymic TCR footprint, and are CD56bright and CD56dim NK distinct lineages? Single-cell VDJ and somatic mtDNA lineage tracing across public datasets</td></tr>
+      <tr><td class="repo"><a href="https://github.com/Eomesodermin/nkg7-binder-design" target="_blank" rel="noopener noreferrer">nkg7-binder-design</a><span class="lang">Python</span></td><td>De novo mini-binder design pipeline (RFdiffusion, ProteinMPNN, Boltz-2, Chai-1) applied to NKG7 extracellular loops, with a sequence-complexity audit of the designs</td></tr>
+      <tr><td class="repo"><a href="https://github.com/Eomesodermin/nkg7-structural-analysis" target="_blank" rel="noopener noreferrer">nkg7-structural-analysis</a><span class="lang">Python</span></td><td>In-silico structural &amp; evolutionary characterisation of NKG7 (cytotoxic-lymphocyte granule tetraspan): structure prediction + homology + pore analysis. Tests the ion-channel hypothesis — finds a self-associating claudin/Ca_V-γ scaffold, not a pore.</td></tr>
+    </tbody>
+  </table>
+  <p class="note">All public repositories: <a href="https://github.com/Eomesodermin" target="_blank" rel="noopener noreferrer">github.com/Eomesodermin</a>. This list refreshes weekly from GitHub.</p>
+
+  <nav class="next" aria-label="Next">
+    <a href="wet-lab.html"><b>Wet lab and cell therapy</b><span>The bench side: NK and CD8 engineering, flow, CRISPR.</span></a>
+    <a href="experience.html"><b>Experience</b><span>Each role, with its papers, code and grants.</span></a>
+    <a href="contact.html"><b>Contact</b><span>CV, email, LinkedIn, ORCID.</span></a>
+  </nav>
+</main>
+<footer class="foot">
+  <p>Dillon Corvino, PhD · University Hospital Bonn</p>
+  <p><a href="impressum.html">Impressum and privacy</a> · Last updated <time data-updated datetime="2026-11">November 2026</time></p>
+</footer>
+</body>
+</html>
