@@ -34,15 +34,36 @@
     </dl>
   </div>
 
-  <h2>What I run end to end</h2>
+  <h2>Single-cell and multi-omics analysis</h2>
   <dl class="defs">
-    <dt>Single-cell</dt><dd>scRNA-seq, CITE-seq, scATAC-seq and scTCR-seq. CellRanger, STARsolo.</dd>
-    <dt>Spatial</dt><dd>Spatial transcriptomics and imaging.</dd>
-    <dt>Bulk and repertoire</dt><dd>Bulk RNA-seq (Salmon), TCR repertoire, WES. scRepertoire, immunarch.</dd>
-    <dt>Analysis</dt><dd>Harmony integration, pseudobulk differential expression, trajectories and RNA velocity, SCENIC, cell–cell communication (CellChat, NicheNet).</dd>
-    <dt>Lineage and structure</dt><dd>Single-cell VDJ and somatic mtDNA lineage tracing; protein structure prediction and de novo binder design (RFdiffusion, ProteinMPNN, Boltz-2, Chai-1).</dd>
-    <dt>Pipelines and compute</dt><dd>Nextflow, Snakemake, SLURM, Apptainer on HPC; reproducible reports in Quarto.</dd>
-    <dt>Languages</dt><dd>R with the tidyverse and ggplot2; Python and applied machine learning.</dd>
+    <dt>Data types</dt><dd>scRNA-seq, CITE-seq, scATAC-seq and scTCR-seq; spatial transcriptomics (Visium) and high-multiplex imaging (CODEX/PhenoCycler); bulk RNA-seq and TCR-seq; exome and genome sequencing.</dd>
+    <dt>Processing and QC</dt><dd>CellRanger, STARsolo, Salmon/alevin-fry, kallisto-bustools; ambient RNA, doublet and empty-droplet removal (SoupX, CellBender, scDblFinder); hashtag and genotype demultiplexing.</dd>
+    <dt>Integration and annotation</dt><dd>Harmony, Seurat CCA/RPCA and weighted nearest neighbour; reference mapping and label transfer (Azimuth, CellTypist, SingleR, ProjecTILs).</dd>
+    <dt>Differential testing</dt><dd>Pseudobulk differential expression (DESeq2, edgeR, limma-voom); differential abundance (Milo); pathway and enrichment analysis (GSEA, decoupleR, PROGENy).</dd>
+    <dt>Trajectories and lineage</dt><dd>RNA velocity (scVelo, CellRank); pseudotime (Monocle, Slingshot); lineage tracing with TCR clones and mitochondrial DNA variants (mgatk, ReDeeM).</dd>
+    <dt>Gene regulation</dt><dd>Regulatory networks (SCENIC, DoRothEA); co-expression modules (WGCNA); chromatin accessibility with ArchR and Signac.</dd>
+    <dt>Immune repertoires</dt><dd>Clonotype calling (CellRanger VDJ, TRUST4, MiXCR), diversity and clonal tracking, CDR3 properties, specificity grouping (GLIPH, TCRdist), TCR embeddings (TCR-BERT).</dd>
+    <dt>Communication and space</dt><dd>Cell–cell communication (CellChat, NicheNet, LIANA); spatial neighbourhood and proximity analysis.</dd>
+    <dt>Other</dt><dd>Copy-number inference (inferCNV, CopyKAT); scVI and single-cell foundation models (scGPT, Geneformer).</dd>
+  </dl>
+
+  <h2>Statistics, programming and compute</h2>
+  <dl class="defs">
+    <dt>Languages</dt><dd><strong>R</strong> (primary: tidyverse, ggplot2, Quarto); Python and shell scripting <span class="dev">developing</span></dd>
+    <dt>Statistics</dt><dd>Linear and mixed-effects models, GLMs and GAMs; survival analysis; compositional data; experimental design, power and multiple-testing correction; permutation, bootstrap and non-parametric tests.</dd>
+    <dt>HPC and environments</dt><dd>SLURM (job arrays, dependency chains, resource estimation); Apptainer/Singularity and Docker; renv and uv environments; Git and GitHub.</dd>
+    <dt>Pipelines</dt><dd>Running nf-core and Snakemake pipelines; writing my own <span class="dev">developing</span></dd>
+    <dt>Public data</dt><dd>GEO, ENA/SRA, ArrayExpress, EGA, CELLxGENE, TCGA and GTEx; FAIR deposition to Zenodo.</dd>
+    <dt>Software</dt><dd>R package development with tests, CI and documentation (r-utility-functions).</dd>
+    <dt>AI-assisted research</dt><dd>Agentic coding and analysis workflows with Claude Code: writing skills, running subagents.</dd>
+  </dl>
+
+  <h2>Developing</h2>
+  <p class="sub">Areas I am actively building, with public work where it exists.</p>
+  <dl class="defs">
+    <dt>Protein structure</dt><dd>Structure prediction (AlphaFold3, Boltz-2, Chai-1), homology search (Foldseek), pore analysis, de novo binder design (RFdiffusion, ProteinMPNN). See the NKG7 repositories below.</dd>
+    <dt>Genomic variants</dt><dd>Germline and somatic variant calling (GATK, Mutect2), copy number (CNVkit), annotation (gnomAD, ClinVar), HLA typing and neoantigen prediction.</dd>
+    <dt>Machine learning</dt><dd>Applied machine learning for outcome prediction; deep learning.</dd>
   </dl>
 
   <h2>Code behind the papers</h2>

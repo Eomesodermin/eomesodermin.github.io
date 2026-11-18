@@ -46,7 +46,8 @@
       const latest = document.getElementById('latest');
       if (latest && (d.latest || []).length) {
         const list = latest.querySelector('[data-list]');
-        d.latest.forEach(p => {
+        const shown = new Set([...document.querySelectorAll('a.doi')].map(a => a.href.toLowerCase()));
+        d.latest.filter(p => p.doi && !shown.has(p.doi.toLowerCase())).forEach(p => {
           const row = mk('div', 'pub'), body = mk('div'), au = mk('p', 'au');
           (p.authors || []).forEach((a, i) => { if (i) au.append(', '); if (a.me) au.appendChild(mk('strong', '', a.name)); else au.append(a.name); });
           if (p.et_al) au.append(', et al.');
@@ -54,7 +55,7 @@
           row.append(body, ext(p.doi, 'DOI', 'doi'));
           list.appendChild(row);
         });
-        latest.hidden = false;
+        if (list.children.length) latest.hidden = false;
       }
     })
     .catch(() => { /* keep the static values in the HTML */ });
