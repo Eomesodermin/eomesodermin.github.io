@@ -81,8 +81,8 @@
 
     if (next !== mode) {
       mode = next;
-      // similar density in both: about 900 dots across the wide line, fewer on the narrow rail
-      makeDots(mode === 'h' ? 900 : Math.max(120, Math.min(420, Math.round((yS - ys[0]) * 0.4))));
+      // about 900 dots across the wide line; on the narrow rail roughly one per pixel of rail
+      makeDots(mode === 'h' ? 900 : Math.max(240, Math.min(800, Math.round((yS - ys[0]) * 0.9))));
     }
   }
 
@@ -203,7 +203,12 @@
   });
   if (reduce) return;
   (function loop() {
-    if (!document.hidden) { for (const d of dots) { d.y += d.sp; if (d.y > NOW + TB) d.y = Y0; } draw(); }
+    if (!document.hidden) {
+      // the phone rail is about a third as long as the desktop line, so dots step faster there
+      const pace = mode === 'v' ? 2 : 1;
+      for (const d of dots) { d.y += d.sp * pace; if (d.y > NOW + TB) d.y = Y0; }
+      draw();
+    }
     requestAnimationFrame(loop);
   })();
 })();

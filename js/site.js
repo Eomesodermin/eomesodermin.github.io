@@ -60,6 +60,30 @@
     })
     .catch(() => { /* keep the static values in the HTML */ });
 
+  // Analytics: GoatCounter (no cookies, no IP storage). Off while GC_CODE is empty.
+  // To switch on: set GC_CODE to the site code (the part before .goatcounter.com) and add
+  // https://<code>.goatcounter.com to img-src in each page's Content-Security-Policy.
+  // Counts are sent as an image request from this script, so no third-party script is loaded.
+  const GC_CODE = '';
+  if (GC_CODE && location.hostname === 'dilloncorvino.com' && !navigator.webdriver) {
+    const count = (path, title, event) => {
+      const q = new URLSearchParams({ p: path, t: title, rnd: Math.random().toString(36).slice(2) });
+      if (event) q.set('e', 'true'); else if (document.referrer) q.set('r', document.referrer);
+      new Image().src = 'https://' + GC_CODE + '.goatcounter.com/count?' + q;
+    };
+    count(location.pathname, document.title);
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a, button'); if (!a) return;
+      const name = a.matches('a[download]') ? 'cv-download'
+        : a.id === 'copy-email' ? 'email-copy'
+        : a.matches('a[href^="mailto:"]') ? 'email-click'
+        : a.matches('a[href*="linkedin.com"]') ? 'linkedin-click'
+        : a.matches('a[href*="scholar.google"]') ? 'scholar-click'
+        : a.matches('a[href*="github.com"]') ? 'github-click' : '';
+      if (name) count(name, name, true);
+    });
+  }
+
   // copy email (contact page)
   const btn = document.getElementById('copy-email');
   if (btn) {
