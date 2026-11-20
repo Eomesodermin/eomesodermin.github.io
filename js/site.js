@@ -60,11 +60,10 @@
     })
     .catch(() => { /* keep the static values in the HTML */ });
 
-  // Analytics: GoatCounter (no cookies, no IP storage). Off while GC_CODE is empty.
-  // To switch on: set GC_CODE to the site code (the part before .goatcounter.com) and add
-  // https://<code>.goatcounter.com to img-src in each page's Content-Security-Policy.
+  // Analytics: GoatCounter (no cookies, no IP storage). Dashboard: dilloncorvino.goatcounter.com.
+  // Changing the code also means changing img-src in each page's Content-Security-Policy.
   // Counts are sent as an image request from this script, so no third-party script is loaded.
-  const GC_CODE = '';
+  const GC_CODE = 'dilloncorvino';
   if (GC_CODE && location.hostname === 'dilloncorvino.com' && !navigator.webdriver) {
     const count = (path, title, event) => {
       const q = new URLSearchParams({ p: path, t: title, rnd: Math.random().toString(36).slice(2) });
