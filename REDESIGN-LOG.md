@@ -1,12 +1,12 @@
 # Redesign log
 
-The redesign happens on the `redesign` branch. The previous site is tagged `v1-before-redesign`.
+The redesign was built on a `redesign` branch, merged into `main` and published on 2026-11-20; the branch is deleted. The previous site is tagged `v1-before-redesign` (local tag).
 
 ## How to go back
 
-- See the old site locally: `git checkout v1-before-redesign` (then `git checkout redesign` to return).
+- See the old site locally: `git checkout v1-before-redesign` (then `git checkout main` to return).
 - Undo one change: `git revert <commit>` for the commit listed below.
-- Drop the whole redesign: do not merge `redesign` into `main`; `main` still serves the old site.
+- Undo the whole redesign: revert the redesign commits on `main` (from `88b0b83` onwards), or ask before resetting `main` to the tag, since `main` is what the live site serves.
 
 ## Structure
 
