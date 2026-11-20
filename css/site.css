@@ -222,6 +222,13 @@ body.wet .t { color: var(--wet-text); }
 .pub .doi { font: 600 13px/1 var(--mono); white-space: nowrap; padding-top: 4px; text-decoration: underline; text-decoration-color: var(--line-strong); }
 .pub .doi:hover { text-decoration-color: currentColor; }
 
+/* impressum and privacy: plain reading text */
+.legal h2 { margin-top: 48px; }
+.legal h3 { font-size: 16px; font-weight: 650; margin: 28px 0 6px; }
+.legal p { margin: 0 0 10px; font-size: 16px; line-height: 1.6; max-width: 68ch; color: var(--soft); }
+.legal p strong { color: var(--ink); }
+.legal a { color: var(--ink); }
+
 /* contact */
 .contact { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; margin-top: 40px; align-items: start; }
 .contact img { width: 220px; height: 220px; object-fit: cover; border-radius: 6px; display: block; filter: grayscale(0.15); }
