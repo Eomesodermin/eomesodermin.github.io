@@ -1,6 +1,6 @@
 /* Landing hero: the career trajectory.
    The stops are an HTML list. Wide screens plot them along a horizontal pseudotime line; narrow
-   screens keep them as a list and draw the same trajectory as a vertical rail beside it. In both,
+   screens run it down a centre rail with labels alternating left and right. In both,
    dots drift along the line and, past "now", sort into the two branches: orange to computational
    biology, red to wet lab and cell therapy. Without JS the list shows with a plain gradient rail.
    Settings locked 2026-11-18: sorted by colour, speed 1x, size 1x, 900 dots (wide). */
@@ -15,7 +15,7 @@
   const GRAD = ['#51127c', '#b73779', '#fc8961', '#fcfdbf'];
   const INK = '#f2eef0', SOFT = '#a99ea6', UP = '#fca16d', DOWN = '#c84a78';
   const MIN_W = 900;                 // axis width below which the trajectory runs vertically
-  const RX = 12, EX = 44;            // vertical mode: rail x, branch end x
+  const GAP = 20;                    // vertical mode: space between the centre rail and a label
   const Y0 = 2011, NOW = 2026.9, Y1 = 2027.5;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -27,8 +27,8 @@
   let mode = '', ctx, W, H, TB, focus = -1, dots = [];
   // horizontal geometry
   let X, cy, ends, endX, x0, xm; const OFF = [];
-  // vertical geometry
-  let YT, ys, yS, vEnds;
+  // vertical geometry: centre x, stop y, split y, branch end y and the two branch end x
+  let CX, YT, ys, yS, yE, EXS;
 
   stops.forEach((a, i) => {
     const enter = () => { focus = i; if (reduce && mode) draw(); }, leave = () => { focus = -1; if (reduce && mode) draw(); };
@@ -47,8 +47,10 @@
     const next = box.clientWidth >= MIN_W ? 'h' : 'v';
     box.classList.toggle('plotted', next === 'h');
     box.classList.toggle('vplot', next === 'v');
-    stops.forEach(a => { a.classList.remove('up'); a.style.left = a.style.top = ''; });
-    endsEl.forEach(a => { a.style.top = ''; });
+    stops.forEach(a => { a.classList.remove('up', 'l', 'r'); a.style.left = a.style.top = a.style.width = ''; });
+    endsEl.forEach(a => { a.style.left = a.style.top = a.style.width = ''; });
+    box.style.height = '';
+    if (next === 'v') placeVertical();
 
     const r = cv.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1);
     W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx = cv.getContext('2d'); ctx.setTransform(d, 0, 0, d, 0, 0);
@@ -72,15 +74,9 @@
       });
       endsEl.forEach((a, i) => { a.style.top = ends[i] + 'px'; });
     } else {
-      // the list stays in normal flow; read where each label sits and map time onto it
-      const top = r.top, at = el => el.getBoundingClientRect().top - top;
-      ys = stops.map(a => at(a) + 7);                       // middle of the year line
-      vEnds = endsEl.map(a => at(a) + 14);                  // middle of the branch title
-      yS = vEnds[0] - 34;                                   // where the rail splits
-      const K = [...STOPS.map(s => s.y), NOW], P = [...ys, yS];
-      YT = y => { if (y <= K[0]) return P[0]; for (let i = 1; i < K.length; i++) if (y <= K[i]) return P[i - 1] + (P[i] - P[i - 1]) * (y - K[i - 1]) / (K[i] - K[i - 1]); return P[P.length - 1]; };
-      const pxPerYear = (yS - ys[0]) / (NOW - Y0);
-      TB = ((vEnds[0] + vEnds[1]) / 2 - yS) / pxPerYear;
+      // the labels are stacked for legibility, not by date, so dots flow evenly down the whole rail
+      YT = y => ys[0] + (Math.min(y, NOW) - Y0) / (NOW - Y0) * (yS - ys[0]);
+      TB = (yE - yS) / ((yS - ys[0]) / (NOW - Y0)); // branch length in years at the rail's pace
     }
 
     if (next !== mode) {
@@ -88,6 +84,35 @@
       // similar density in both: about 900 dots across the wide line, fewer on the narrow rail
       makeDots(mode === 'h' ? 900 : Math.max(120, Math.min(420, Math.round((yS - ys[0]) * 0.4))));
     }
+  }
+
+  // narrow screens: a centre rail with labels alternating left and right, oldest at the top.
+  // Each label starts a little below the previous one and clear of the last label on its side.
+  function placeVertical() {
+    const w = box.clientWidth, half = w / 2 - GAP;
+    CX = w / 2; ys = [];
+    let prevTop = -Infinity; const bottom = { l: 0, r: 0 };
+    stops.forEach((a, i) => {
+      const side = i % 2 ? 'r' : 'l';
+      a.classList.add(side);
+      a.style.width = half + 'px';
+      a.style.left = (side === 'l' ? 0 : CX + GAP) + 'px';
+      const top = Math.max(i ? prevTop + 30 : 4, bottom[side] ? bottom[side] + 18 : 0);
+      a.style.top = top + 'px';
+      prevTop = top; bottom[side] = top + a.offsetHeight;
+      ys[i] = top + 6;                                   // middle of the year line
+    });
+    yS = Math.max(bottom.l, bottom.r) + 22;              // where the rail splits
+    yE = yS + 64;                                        // where the branches end
+    EXS = [half / 2, CX + GAP + half / 2];               // computational left, wet lab right
+    let endsH = 0;
+    endsEl.forEach((a, i) => {
+      a.style.width = half + 'px';
+      a.style.left = (i ? CX + GAP : 0) + 'px';
+      a.style.top = (yE + 14) + 'px';
+      endsH = Math.max(endsH, a.offsetHeight);
+    });
+    box.style.height = (yE + 14 + endsH + 8) + 'px';
   }
 
   // a dot's position at pseudotime y: on the line before now, on its branch's curve after
@@ -99,17 +124,15 @@
       return [bez(x0, xm, xm, endX, t), bez(cy, cy, by, by, t) + d.j * (1 - 0.8 * t)];
     }
     const jx = d.j * 0.3;
-    if (d.y <= NOW) return [RX + jx, YT(d.y)];
-    const t = Math.min(1, (d.y - NOW) / TB), by = vEnds[comp ? 0 : 1], span = by - yS;
-    // the computational branch bends out early, the wet-lab branch follows the rail and bends late
-    const k1 = comp ? 0.5 : 0.8, k2 = comp ? 0.5 : 0.15;
-    return [bez(RX, RX, EX, EX, t) + jx * (1 - 0.8 * t), bez(yS, yS + k1 * span, by - k2 * span, by, t)];
+    if (d.y <= NOW) return [CX + jx, YT(d.y)];
+    const t = Math.min(1, (d.y - NOW) / TB), ex = EXS[comp ? 0 : 1], span = yE - yS;
+    return [bez(CX, CX, ex, ex, t) + jx * (1 - 0.8 * t), bez(yS, yS + 0.5 * span, yE - 0.5 * span, yE, t)];
   }
 
   function drawDots() {
     for (const d of dots) {
-      const dim = focus >= 0 && !(d.y >= STOPS[focus].y && d.y <= STOPS[focus].e);
       const [x, y] = pos(d);
+      const dim = focus >= 0 && (mode === 'h' ? !(d.y >= STOPS[focus].y && d.y <= STOPS[focus].e) : !(y >= ys[focus] && y <= (ys[focus + 1] || yS)));
       ctx.globalAlpha = dim ? 0.15 : 0.6; ctx.fillStyle = d.u < 0.5 ? UP : DOWN;
       ctx.beginPath(); ctx.arc(x, y, mode === 'h' ? 2.3 : 2, 0, 6.283); ctx.fill();
     }
@@ -135,20 +158,23 @@
   }
 
   function drawV() {
+    if (focus >= 0) { ctx.fillStyle = 'rgba(255,255,255,0.05)'; ctx.fillRect(CX - 22, ys[focus], 44, (ys[focus + 1] || yS) - ys[focus]); }
     drawDots();
     const g = ctx.createLinearGradient(0, ys[0], 0, yS);
     GRAD.forEach((c, i) => g.addColorStop(i / (GRAD.length - 1), c));
-    ctx.fillStyle = g; ctx.fillRect(RX - 2, ys[0], 4, yS - ys[0]);
-    vEnds.forEach((by, i) => {
-      const comp = i === 0, span = by - yS, k1 = comp ? 0.5 : 0.8, k2 = comp ? 0.5 : 0.15;
+    ctx.fillStyle = g; ctx.fillRect(CX - 2, ys[0], 4, yS - ys[0]);
+    const span = yE - yS;
+    EXS.forEach((ex, i) => {
+      const comp = i === 0;
       ctx.strokeStyle = comp ? UP : DOWN; ctx.lineWidth = comp ? 2.4 : 2; ctx.setLineDash(comp ? [5, 5] : []);
-      ctx.beginPath(); ctx.moveTo(RX, yS); ctx.bezierCurveTo(RX, yS + k1 * span, EX, by - k2 * span, EX, by); ctx.stroke(); ctx.setLineDash([]);
-      ctx.fillStyle = ctx.strokeStyle; ctx.beginPath(); ctx.arc(EX, by, 4, 0, 6.283); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(CX, yS); ctx.bezierCurveTo(CX, yS + 0.5 * span, ex, yE - 0.5 * span, ex, yE); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = ctx.strokeStyle; ctx.beginPath(); ctx.arc(ex, yE, 4, 0, 6.283); ctx.fill();
     });
     ys.forEach((y, i) => {
+      const dir = i % 2 ? 1 : -1;                         // tick points towards the label's side
       ctx.strokeStyle = focus === i ? INK : SOFT; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(RX, y); ctx.lineTo(RX + 14, y); ctx.stroke();
-      ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(RX, y, focus === i ? 5 : 4, 0, 6.283); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(CX, y); ctx.lineTo(CX + dir * (GAP - 4), y); ctx.stroke();
+      ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(CX, y, focus === i ? 5 : 4, 0, 6.283); ctx.fill();
     });
   }
 

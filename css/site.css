@@ -118,11 +118,20 @@ a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; 
 .axis.plotted .ends a { position: absolute; right: 0; width: 270px; transform: translateY(-50%); pointer-events: auto; }
 .axis.plotted .ends a.c b, .axis.plotted .ends a.w b { color: var(--ink); }
 
-/* narrow screens: the list stays in flow and the script draws a vertical rail and branches beside it */
+/* narrow screens: a centre rail drawn by the script, labels alternating left and right in smaller type */
+.axis.vplot { width: 100%; max-width: 560px; margin-left: auto; margin-right: auto; }
 .axis.vplot canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.axis.vplot .stops { padding-left: 36px; z-index: 1; }
+.axis.vplot .stops { position: absolute; inset: 0; padding: 0; display: block; z-index: 1; }
 .axis.vplot .stops::before { display: none; }
-.axis.vplot .ends { position: relative; z-index: 1; padding-left: 58px; margin-top: 64px; gap: 34px; }
+.axis.vplot .stop { position: absolute; max-width: none; font-size: 12.5px; line-height: 1.3; }
+.axis.vplot .stop.l { text-align: right; }
+.axis.vplot .stop .yr { font-size: 11px; margin-bottom: 3px; }
+.axis.vplot .stop b { font-size: 14px; }
+.axis.vplot .stop .n { font-size: 11.5px; margin-top: 3px; }
+.axis.vplot .ends { position: absolute; inset: 0; margin: 0; display: block; z-index: 1; pointer-events: none; }
+.axis.vplot .ends a { position: absolute; max-width: none; text-align: center; pointer-events: auto; }
+.axis.vplot .ends a b { font-size: 16px; line-height: 1.25; }
+.axis.vplot .ends a span { font-size: 12.5px; }
 
 @media (max-width: 900px) {
   .top { grid-template-columns: 1fr; gap: 8px; align-items: start; }
