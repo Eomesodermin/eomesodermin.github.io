@@ -1,29 +1,7 @@
 {
-  "latest": [
-    {
-      "authors": [
-        {
-          "me": false,
-          "name": "van der Voort G"
-        },
-        {
-          "me": false,
-          "name": "…"
-        },
-        {
-          "me": true,
-          "name": "Corvino D"
-        }
-      ],
-      "doi": "https://doi.org/10.1038/s41540-026-00765-5",
-      "et_al": true,
-      "title": "Longitudinal spatial neutrophil profiling during ACT in murine melanoma reveals distinct lymph node infiltration patterns",
-      "venue": "npj Systems Biology and Applications",
-      "year": 2026
-    }
-  ],
+  "latest": [],
   "metrics": {
-    "citations": 965,
+    "citations": 1063,
     "h_index": 16
   },
   "repos": [
@@ -122,5 +100,5 @@
     }
   ],
   "source": "OpenAlex + GitHub",
-  "updated": "2026-11-12"
+  "updated": "2026-11-23"
 }
